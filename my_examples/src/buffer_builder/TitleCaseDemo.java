@@ -19,7 +19,7 @@ public class TitleCaseDemo {
 		StringBuilder sb2=new StringBuilder();
 		for (String word:ar) {
 			sb2.append(word.substring(0, word.length()-1)).append(Character
-					.toUpperCase(word.charAt(word.length()-1))).append(" ");
+					.toUpperCase(word.charAt(word.length()-1))).append(" ");//could also use reverse() method
 		}
 		System.out.println(sb2.toString().trim());	
 	}
