@@ -1,17 +1,17 @@
 package operators;
 
 public class Arithmetic {
-	private int x=-7;
-	private int y=6;
+	private int x;
+	private int y;
+
+	public Arithmetic(int x, int y) {
+		this.x=x;
+		this.y=y;
+	}
 	
-	public static void main(String[] args) {
-		Arithmetic number = new Arithmetic();
-		System.out.println(number.getX()+ " is positive? "+ number.isPositive(number.getX()));
-		System.out.println(number.getY()+ " is negative? "+ number.isNegative(number.getY()));
-		System.out.println(number.getX()+" is "+number.isEvenOrOdd(number.getX()));
-		System.out.println(number.getY()+" is "+number.isEvenOrOdd(number.getY()));
-		System.out.println(number.getX()+" to the "+number.getY()+"th power is "+ number.powerFunction(number.getX(), number.getY()));
-}
+	public Arithmetic() {
+		
+	}
 	
 	public boolean isPositive(int x) {
 		if (x>0) {
@@ -37,13 +37,20 @@ public class Arithmetic {
 		}
 	}
 	
-	public int powerFunction(int x, int y) {
-		int result=1;
-		for (int i=0;i<y;i++) {
+	public float powerFunction(int x, int y) {
+		float result = 1f;
+		for(int i = 0;i<y;i++) {
 			result*=x;
 		}
-		return result;
-	}
+		if(y==0) {
+			return 1f;
+		}else if(y>0) {
+			return result;
+		}else {
+			return 1f/result;	//this part isn't working for some reason e.g. 2^(-3)=.125 yet powerFunction(2,-3) outputs as 1.0
+		}
+					
+}					 
 
 	public int getX() {
 		return x;
@@ -60,4 +67,5 @@ public class Arithmetic {
 	public void setY(int y) {
 		this.y = y;
 	}
+	
 }
