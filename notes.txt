@@ -7,3 +7,9 @@
 -Thus, Java doesn't support Hybrid Inheritance in classes either
 -bottom to top approach: parents methods are loaded into object, then child methods and overridden methods of parent are loaded (ex: Dog object is an instance of a Animal class through inheritance)
 -super keyword is used to point to parent class objects
+-super keyword is needed to point to a particular constructor in a parent class (constructor chaining) -- ex. super(id, name)
+-Object class is the super class of all classes (parent of all classes)
+-instance of a child class inherits methods of Object class such as getClass() and hashCode()
+-hashCode() method generates (through JVM) a unique code for each object
+-getClass() returns the class that an object is instance of
+-both hashCode() and getClass() are non-static methods and require an object
