@@ -1,0 +1,9 @@
+*Inheritance*
+
+-Child class inherits properties and methods of parent class, unless they are private in parent class
+-format: ChildClassName extends ParentClassName
+-Java doesn't support Multiple Inheritance in classes
+-Hybrid Inheritance is a combination of Hierarchical Inheritance and Multiple Inheritance.
+-Thus, Java doesn't support Hybrid Inheritance in classes either
+-bottom to top approach: parents methods are loaded into object, then child methods and overridden methods of parent are loaded (ex: Dog object is an instance of a Animal class through inheritance)
+-super keyword is used to point to parent class objects
