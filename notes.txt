@@ -13,3 +13,25 @@
 -hashCode() method generates (through JVM) a unique code for each object
 -getClass() returns the class that an object is instance of
 -both hashCode() and getClass() are non-static methods and require an object
+-non-static blocks can access both static and non-static (non-static-->not loaded into the memory until object is created)
+-static blocks will only be able to access only static
+
+
+*Method Overriding*
+
+-is modifying a method of a parent class to be used in the child class
+-anything that is static, private, and final you cannot override
+-best practice to put @Override directly above the overridden method (an annotation)
+-with that annotation, the compiler will let the programmer know if they are overriding a method incorrectly
+-an override of a method cannot have less visibility than that in the parent class (ex a method that is protected in the parent cannot be overridden in the child class as either default or private, but it can be public or protected)
+
+
+*Method Overloading*
+-same method name, but different parameters, whether in number or type
+
+
+*Object Casting*
+-applicable only in inheritance and only between a child class and its parent (not sibling classes)
+-implicit object casting--converting child object (smaller) to parent object (larger) (ex. ParentClass object1 = new ChildClass(), object can then access overridden methods in child class as well as parent's methods but cannot access methods unique to the child)
+-explicit object casting--converting parent object (larger) to child object (smaller) (ex ChildClass object2=(ChildClass) object1)
+-however, if the child class methods were never loaded into the memory of a parent class object, then the parent class object cannot be casted into a child object because it doesn't have access to those methods (known as a ClassCastException)
