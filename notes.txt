@@ -1,3 +1,5 @@
+**Java**
+
 *Inheritance*
 
 -Child class inherits properties and methods of parent class, unless they are private in parent class
@@ -37,3 +39,20 @@
 -implicit object casting--converting child object (smaller) to parent object (larger) (ex. ParentClass object1 = new ChildClass(), object can then access overridden methods in child class as well as parent's methods but cannot access methods unique to the child)
 -explicit object casting--converting parent object (larger) to child object (smaller) (ex ChildClass object2=(ChildClass) object1)
 -however, if the child class methods were never loaded into the memory of a parent class object, then the parent class object cannot be casted into a child object because it doesn't have access to those methods (known as a ClassCastException)
+
+
+**SQL(pronounced sequel)**
+
+*DDL (Data Definition Language)*
+-commands include Create, Drop, Alter, and Truncate
+-constraints are used to restrict what data goes in your tables
+-Check Constraint->allows you to specify that the value in a certain column must satisfy a Boolean (truth-value) expression
+--ex: Create Table products (product_no integer, name text, price numeric Constraint positive_price Check (price>0) );
+--column constraints can also be written as table constraints, while the reverse is not necessarily possible, since a column constraint is supposed to refer to only the column it is attached to
+-Not-Null Constraints->ensures that a column doesn't have null values
+--you cannot give explicit names to not-null constraints
+--ex: create table products( product_no integer Not Null, name text Not Null, price numeric Not Null Check (price>0) );
+-Unique Constraint->ensure that the data contained in a column or a group of columns is unique with respect to all the rows in the table
+--In general, a unique constraint is violated when there is more than one row in the table where the values of all of the columns included in the constraint are equal. However, two null values are not considered equal in this comparison.
+--ex: create table products (product_no integer Unique, name text, price numeric);
+--ex: create table example (a integer, b integer, c integer, Unique (a, c) ); <--(specifies that the combination of values in the indicated columns is unique across the whole table, though any one of the columns need not be (and ordinarily isn't) unique)
