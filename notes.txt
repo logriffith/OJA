@@ -28,6 +28,8 @@
 
 *Method Overloading*
 -same method name, but different parameters, whether in number or type
+-happens within the same class and not between classes
+-method can be static or non-static, all that matters is that the method name is the same and that the parameters are unique
 
 
 *Object Casting*
