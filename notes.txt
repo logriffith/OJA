@@ -41,7 +41,7 @@
 -however, if the child class methods were never loaded into the memory of a parent class object, then the parent class object cannot be casted into a child object because it doesn't have access to those methods (known as a ClassCastException)
 
 
-**SQL(pronounced sequel)**
+**SQL(pronounced "sequel")**
 
 *DDL (Data Definition Language)*
 -commands include Create, Drop, Alter, and Truncate
@@ -56,3 +56,17 @@
 --In general, a unique constraint is violated when there is more than one row in the table where the values of all of the columns included in the constraint are equal. However, two null values are not considered equal in this comparison.
 --ex: create table products (product_no integer Unique, name text, price numeric);
 --ex: create table example (a integer, b integer, c integer, Unique (a, c) ); <--(specifies that the combination of values in the indicated columns is unique across the whole table, though any one of the columns need not be (and ordinarily isn't) unique)
+-Primary Keys->combination of a unique constraint and a not-null constraint
+--indicates that a column or group of columns can be used as a unique identifier for rows in the table
+--A table can have at most one primary key
+--ex: create table products (product_no integer Primary Key, name text, price numeric );
+--ex: create table example (a integer, b integer, c integer, Primary Key (a,c) );
+-Foreign Keys->specifies that the values in a column (or a group of columns) must match the values appearing in some row of another table
+--this maintains the referential integrity between two related tables
+--can also constrain and reference a group of columns
+--ex: create table orders (order_id integer Primary Key, product_no integer References products (product_no), quantity integer );
+---Now it is impossible to create orders with product_no entries that do not appear in the products table
+--A table can contain more than one foreign key constraint. This is used to implement many-to-many relationships between tables
+-you can use the Alter Table command to add columns, remove columns, add constraints, remove constraints, change default values, change column data types, rename columns, and rename tables
+--ex: Alter Table products Add Column description text; <--(The new column is initially filled with whatever default value is given (null if you don't specify a DEFAULT clause) )
+--ex: ALTER TABLE products DROP COLUMN description; <--(Whatever data was in the column disappears. Table constraints involving the column are dropped, too. However, if the column is referenced by a foreign key constraint of another table, PostgreSQL will not silently drop that constraint. You can authorize dropping everything that depends on the column by adding CASCADE)
