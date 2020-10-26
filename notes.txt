@@ -1,7 +1,6 @@
 **Java**
 
 *Inheritance*
-
 -Child class inherits properties and methods of parent class, unless they are private in parent class
 -format: ChildClassName extends ParentClassName
 -Java doesn't support Multiple Inheritance in classes
@@ -20,7 +19,6 @@
 
 
 *Method Overriding*
-
 -is modifying a method of a parent class to be used in the child class
 -anything that is static, private, and final you cannot override
 -best practice to put @Override directly above the overridden method (an annotation)
@@ -45,6 +43,7 @@
 
 *DDL (Data Definition Language)*
 -commands include Create, Drop, Alter, and Truncate
+-truncate quickly removes all rows from a set of tables. It has the same effect as an unqualified DELETE on each table, but since it does not actually scan the tables it is faster
 -constraints are used to restrict what data goes in your tables
 -Check Constraint->allows you to specify that the value in a certain column must satisfy a Boolean (truth-value) expression
 --ex: Create Table products (product_no integer, name text, price numeric Constraint positive_price Check (price>0) );
@@ -70,3 +69,16 @@
 -you can use the Alter Table command to add columns, remove columns, add constraints, remove constraints, change default values, change column data types, rename columns, and rename tables
 --ex: Alter Table products Add Column description text; <--(The new column is initially filled with whatever default value is given (null if you don't specify a DEFAULT clause) )
 --ex: ALTER TABLE products DROP COLUMN description; <--(Whatever data was in the column disappears. Table constraints involving the column are dropped, too. However, if the column is referenced by a foreign key constraint of another table, PostgreSQL will not silently drop that constraint. You can authorize dropping everything that depends on the column by adding CASCADE)
+--ex: ALTER TABLE products DROP CONSTRAINT some_name; <--(To remove a constraint you need to know its name. If you gave it a name then that's easy. Otherwise the system assigned a generated name, which you need to find out. The psql command \d tablename can be helpful here; other interfaces might also provide a way to inspect table details. )
+---As with dropping a column, you need to add CASCADE if you want to drop a constraint that something else depends on
+
+*DML (Data Manipulation Language)*
+-Insert command allows you to insert (a complete) row(s) of data into a table
+--ex: INSERT INTO products VALUES (1, 'Cheese', 9.99); <--(The data values are listed in the order in which the columns appear in the table, separated by commas)
+--ex: INSERT INTO products (product_no, name, price) VALUES (1, 'Cheese', 9.99);
+--ex: Insert into products (product_no, name, price) Values (1, 'Cheese', 9.99), (2, 'Bread', 1.99), (3, 'Milk', 2.99);
+-Update command allows you to modify the data in the table
+--need name of the table and column to update, new value of the column, and which row(s) to update
+--ex: UPDATE products SET price = 10 WHERE price = 5;
+-Delete command allows you to delete the data from a row
+--ex: DELETE FROM products WHERE price = 10;
