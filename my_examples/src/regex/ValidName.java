@@ -3,7 +3,8 @@ package regex;
 import java.util.Scanner;
 
 public class ValidName {
-	
+	//RegEx meta characters are \.[]{}()<>*+-=!?^$|
+	//If you want to use them in RegEx, use escape sequence \\
 	public static void main(String[] args) {
 		System.out.println("Please enter a name");
 		Scanner scan=new Scanner(System.in);
