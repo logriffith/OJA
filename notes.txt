@@ -82,3 +82,6 @@
 --ex: UPDATE products SET price = 10 WHERE price = 5;
 -Delete command allows you to delete the data from a row
 --ex: DELETE FROM products WHERE price = 10;
+
+*DQL (Data Query Language)*
+-Select command allows you to retrieve (i.e read) rows from a table for the user to view
