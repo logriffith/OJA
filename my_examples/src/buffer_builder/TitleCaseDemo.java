@@ -12,6 +12,7 @@ public class TitleCaseDemo {
 			sb.append(Character.toUpperCase(s1.charAt(0))).append(s1.substring(1)).append(" ");
 		}
 		System.out.println(sb.toString().trim());
+		//trim() is a method in the String class and toString() is overridden in the StringBuilder class to convert StringBuilder object into a String object
 		
 		//Task - Convert every words last char to uppercase
 		System.out.println("\n"+s);
