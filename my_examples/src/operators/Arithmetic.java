@@ -36,10 +36,10 @@ public class Arithmetic {
 			return "odd";
 		}
 	}
-	
-	public float powerFunction(int x, int y) {
+	//Check out math library
+	public float powerFunction(float x, float y) {
 		float result = 1f;
-		for(int i = 0;i<y;i++) {
+		for(float i = 0;i<y;i++) {
 			result*=x;
 		}
 		if(y==0) {
