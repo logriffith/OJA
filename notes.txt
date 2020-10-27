@@ -85,3 +85,35 @@
 
 *DQL (Data Query Language)*
 -Select command allows you to retrieve (i.e read) rows from a table for the user to view
+
+*TCL (Transaction Control Language)*
+-TCL commands are used to manage transactions in the database
+-commit command is used to permanently save any transaction into the database
+-rollback restores the database to last committed state
+-savepoint command is used to temporarily save a transaction so that you can rollback to that point whenever necessary
+
+*DCL (Data Control Language)*
+-grant command allows specific users to perform specified tasks
+-revoke command cancels previously granted or denied permissions
+
+*ACID Properties*
+-ACID stands for Atomic, Consistent, Isolation, and Durability
+-Atomic-->Transaction acting on several pieces of information complete only if all pieces successfully save.   Here, “all or nothing” applies to the transaction
+-Consistent-->The saved data cannot violate the integrity of the database. Interrupted modifications are rolled back to ensure the database is in a state before the change takes place.
+-Isolation-->No other transactions take place and affect the transaction in question.   This prevents “mid-air collisions.”
+-Durable-->System failures or restarts do not affect committed transactions. 
+
+*Isolation Levels*
+-Read Uncommitted
+-Read Committed
+-Repeatable Read
+-Serializable
+
+*Sample Code*
+*Create Tables*
+-CREATE TABLE test.employees (
+	id int NOT NULL,
+	occupation varchar(50) NOT NULL,
+	CONSTRAINT employees_pk PRIMARY KEY (id),
+	CONSTRAINT employees_fk FOREIGN KEY (id) REFERENCES test.sample_table(id)
+);
