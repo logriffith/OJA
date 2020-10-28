@@ -25,7 +25,7 @@ public class ExampleJDBC {
 			firstConnection = DriverManager.getConnection(url, username, password);
 			System.out.println("You are connected to database now");
 			
-			////Step 3 - Create Statement
+			//Step 3 - Create Statement
 			Statement statement = firstConnection.createStatement();// DriverManager class implements Statement Interface
 			String sql = "SELECT id, occupation, email, phone_number, status from test.employees";
 			System.out.println("Statement successfully created");
