@@ -1,5 +1,6 @@
 package com.app.jdbc.dao;
 
+import com.app.jdbc.exception.BusinessException;
 import com.app.jdbc.model.Employee;
 
 //DAO - Data Access Object
@@ -7,11 +8,11 @@ import com.app.jdbc.model.Employee;
 //storage will be written inside this.
 public interface EmployeeDAO {
 	
-	public int createEmployee(Employee employee);
+	public int createEmployee(Employee employee) throws BusinessException;
 	
-	public int updateEmployeeContact(int id, String phone);
+	public int updateEmployeeContact(int id, String phone) throws BusinessException;
 	
-	public void deleteEmployee(int id);
+	public void deleteEmployee(int id) throws BusinessException;
 	
-	public Employee getEmployeeId(int id);
+	public Employee getEmployeeById(int id) throws BusinessException;
 }
