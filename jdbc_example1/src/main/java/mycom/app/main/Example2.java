@@ -17,14 +17,14 @@ public class Example2 {
 			
 			//Step 2 - Open Connection(url,username,password)
 			String url = "jdbc:postgresql://localhost:5432/postgres";
-			String username = "postgres";
-			String password = "Is40:31#protected!";
+			String username = System.getenv("postgresUsername");//stored username as environment variable
+			String password = System.getenv("postgresPassword");//stored password as environment variable
 			connection = DriverManager.getConnection(url, username, password);
 			System.out.println("You are connected to database now");
 			
 			//Step 3 - Create Statement
 			Statement statement = connection.createStatement();// DriverManager class implements Statement Interface
-			String sql = "INSERT INTO test.sample_table VALUES (108, Lex Luthor)";
+			String sql = "INSERT INTO test.characters_table VALUES (108, Lex Luthor, null)";
 			System.out.println("Statement successfully created");
 			
 			//Step 4 - Execute Query
