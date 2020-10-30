@@ -10,7 +10,7 @@ public interface EmployeeDAO {
 	
 	public int createEmployee(Employee employee) throws BusinessException;
 	
-	public int updateEmployeeContact(int id, String phone) throws BusinessException;
+	public int updateEmployeePhone(int id, long newPhone) throws BusinessException;
 	
 	public void deleteEmployee(int id) throws BusinessException;
 	

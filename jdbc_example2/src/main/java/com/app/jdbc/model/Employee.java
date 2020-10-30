@@ -5,8 +5,13 @@ public class Employee {
 	private int id;
 	private String occupation;
 	private String email;
-	private String phoneNumber;
+	private long phoneNumber;
 	private String status;
+	private String employer;
+	
+	public Employee() {
+		
+	}
 	
 	public int getId() {
 		return id;
@@ -32,11 +37,11 @@ public class Employee {
 		this.email = email;
 	}
 	
-	public String getPhoneNumber() {
+	public long getPhoneNumber() {
 		return phoneNumber;
 	}
 	
-	public void setPhoneNumber(String phoneNumber) {
+	public void setPhoneNumber(long phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 	
@@ -48,19 +53,32 @@ public class Employee {
 		this.status = status;
 	}
 	
+	
+	
 	@Override
 	public String toString() {
 		return "Employee [id=" + id + ", occupation=" + occupation + ", email=" + email + ", phoneNumber=" + phoneNumber
-				+ ", status=" + status + "]";
+				+ ", status=" + status + ", employer=" + employer + "]";
 	}
+
 	
-	public Employee(int id, String occupation, String email, String phoneNumber, String status) {
+
+	public Employee(int id, String occupation, String email, long phoneNumber, String status, String employer) {
 		super();
 		this.id = id;
 		this.occupation = occupation;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
 		this.status = status;
+		this.employer = employer;
+	}
+
+	public String getEmployer() {
+		return employer;
+	}
+
+	public void setEmployer(String employer) {
+		this.employer = employer;
 	}
 	
 }

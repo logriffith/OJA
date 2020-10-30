@@ -27,13 +27,14 @@ public class ExampleJDBC {
 			
 			//Step 3 - Create Statement
 			Statement statement = firstConnection.createStatement();// DriverManager class implements Statement Interface
-			String sql = "SELECT id, occupation, email, phone_number, status from test.employees";
+			String sql = "SELECT id, occupation, email, phone_number, status, employer from test.employees";
 			System.out.println("Statement successfully created");
 			
 			//Step 4 - Execute Query
 			//Since I and using DQL, I need the executeQuery() method, which is in the ResultSet interface
 			ResultSet result = statement.executeQuery(sql);
-			System.out.println("The query was executed");
+			System.out.println("The query was executed\n");
+			System.out.println("Printing the data:");
 			
 			//Step 5 - Process Results
 			while(result.next()) {
@@ -41,7 +42,8 @@ public class ExampleJDBC {
 				System.out.print("Occupation = "+result.getString("occupation")+ " ");
 				System.out.print("Email = "+result.getString("email")+ " ");
 				System.out.print("Phone Number = "+result.getString("phone_number")+ " ");
-				System.out.println("Status = "+result.getString("status")+ " ");
+				System.out.print("Status = "+result.getString("status")+ " ");
+				System.out.println("Employer = "+result.getString("employer"));
 			}
 			System.out.println("\nResults were processed");
 			
