@@ -13,11 +13,11 @@ public class PostgresSqlConnection {
 	
 	public static Connection getConnection() throws ClassNotFoundException, SQLException {
 		//Step 1 - Load/Register the Driver
-		Class.forName("org.postgresql.Driver");
+		Class.forName(DbUtilInfo.DRIVER);
 		//Step 2 - Open Connection(url,username,password)
-		String url = "jdbc:postgresql://localhost:5432/postgres";
-		String username = "postgres";
-		String password = "Is40:31#protected!";
+		String url = DbUtilInfo.URL;
+		String username = System.getenv("postgresUserName");
+		String password = System.getenv("postgresPassword");
 		connection = DriverManager.getConnection(url, username, password);
 		return connection;
 	}

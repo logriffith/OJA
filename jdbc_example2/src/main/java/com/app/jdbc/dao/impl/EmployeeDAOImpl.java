@@ -17,8 +17,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		//inside the parentheses next to the try keyword is composed of Step 1,2,6
 		try(Connection connection = PostgresSqlConnection.getConnection()){
 			//Step 3
-			String sql = "insert into test.employees (id,occupation,email,phone_number,status,employer)"
-					+ "values (?,?,?,?,?,?)";
+			String sql = EmployeeQueries.INSERT_EMPLOYEE;
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setInt(1, employee.getId());
 			preparedStatement.setString(2, employee.getOccupation());
@@ -41,7 +40,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		int c = 0;
 		try (Connection connection = PostgresSqlConnection.getConnection()) {
 			//Step 3
-			String sql = "update test.employees set phone_number=? where id=?";
+			String sql = EmployeeQueries.UPDATE_EMPLOYEE_PHONE;
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setLong(1, newPhone);
 			preparedStatement.setInt(2, id);
@@ -58,7 +57,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	@Override
 	public void deleteEmployee(int id) throws BusinessException {
 		try(Connection connection = PostgresSqlConnection.getConnection()){
-			String sql = "delete from test.employees where id = ?";
+			String sql = EmployeeQueries.DELETE_EMPLOYEE;
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setInt(1, id);
 			preparedStatement.executeUpdate();
@@ -73,7 +72,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	public Employee getEmployeeById(int id) throws BusinessException {
 		Employee employee = null;
 		try(Connection connection = PostgresSqlConnection.getConnection()){
-			String sql = "select occupation,email,phone_number,status,employer from test.employees where id = ?";
+			String sql = EmployeeQueries.GET_EMPLOYEE_BY_ID;
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setInt(1, id);
 			ResultSet resultSet = preparedStatement.executeQuery();

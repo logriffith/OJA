@@ -1,3 +1,21 @@
+**Mac Helpful Tips**
+If any other Mac users are having trouble setting environment variables, I think I figured it out.
+Open terminal. Enter:
+nano .bash_profile
+Once in nano, type the following (using your own password and username for value):
+export postgresPassword=value
+export postgresUserName=value
+Then hit these keys:
+[ctrl +o]
+[return]
+[ctrl +x]
+Then enter this into your terminal:
+source .bash_profile
+Then enter:
+launchctl setenv postgresPassword $postgresPassword
+launchctl setenv postgresUserName $postgresUserName
+And after restarting Spring Tool, System.getenv should work.
+
 **Java**
 
 *Inheritance*
