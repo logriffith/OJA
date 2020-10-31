@@ -56,3 +56,5 @@ public class JdbcDemoMain {
 	}
 
 }
+//export postgresUsername=postgres
+//export postgresPassword=Is40:31#protected!
