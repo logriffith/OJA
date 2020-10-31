@@ -17,8 +17,10 @@ public class Example2 {
 			
 			//Step 2 - Open Connection(url,username,password)
 			String url = "jdbc:postgresql://localhost:5432/postgres";
-			String username = System.getenv("postgresUsername");//stored username as environment variable
-			String password = System.getenv("postgresPassword");//stored password as environment variable
+//			String username = System.getenv("postgresUsername");//stored username as environment variable
+//			String password = System.getenv("postgresPassword");//stored password as environment variable
+			String username = "postgres";
+			String password = "Is40:31#protected!";
 			connection = DriverManager.getConnection(url, username, password);
 			System.out.println("You are connected to database now");
 			

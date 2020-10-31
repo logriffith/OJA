@@ -16,8 +16,10 @@ public class PostgresSqlConnection {
 		Class.forName(DbUtilInfo.DRIVER);
 		//Step 2 - Open Connection(url,username,password)
 		String url = DbUtilInfo.URL;
-		String username = System.getenv("postgresUsername");
-		String password = System.getenv("postgresPassword");
+//		String username = System.getenv("postgresUsername");
+//		String password = System.getenv("postgresPassword");
+		String username = "postgres";
+		String password = "Is40:31#protected!";
 		connection = DriverManager.getConnection(url, username, password);
 		return connection;
 	}
