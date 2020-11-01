@@ -1,16 +1,16 @@
 package com.characters.model;
 
-public class Character {
+public class FictionalCharacter {
 	
 	private int id;
 	private String name;
 	private String alias;
 	
-	public Character() {
+	public FictionalCharacter() {
 		
 	}
 
-	public Character(int id, String name, String alias) {
+	public FictionalCharacter(int id, String name, String alias) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -43,8 +43,8 @@ public class Character {
 
 	@Override
 	public String toString() {
-		return "Character [id=" + id + ", name=" + name + ", alias=" + alias + "]";
+		return "FictionalCharacter [id=" + id + ", name=" + name + ", alias=" + alias + "]";
 	}
-	
+
 	
 }
