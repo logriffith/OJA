@@ -4,13 +4,13 @@ import org.apache.log4j.Logger;
 
 import com.banking.app.main.BankingMain;
 
-public class MainUtilities {
+public class BankingMenus {
 	
-	public static Logger log = Logger.getLogger(MainUtilities.class);
+	public static Logger log = Logger.getLogger(BankingMenus.class);
 	
 	public static void mainMenu() {
 		log.info("\n");
-		log.info("Please choose from the following menu:");
+		log.info("Main Menu:");
 		log.info("======================================");
 		log.info("(1) New Customer?");
 		log.info("(2) Customer Log-in");
@@ -22,11 +22,11 @@ public class MainUtilities {
 	
 	public static void customerMenu() {
 		log.info("\n");
-		log.info("Please choose from the following menu:");
+		log.info("Customer Menu:");
 		log.info("======================================");
 		log.info("(1) Would you like to open a new account?");
 		log.info("(2) Open an existing account?");
-		log.info("(3) Exit");
+		log.info("(3) Back");
 		log.info("======================================");
 		log.info("Please be sure to enter an appropriate number between 1 and 3.\n");
 	}
