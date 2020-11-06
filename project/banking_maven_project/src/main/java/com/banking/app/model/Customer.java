@@ -1,32 +1,35 @@
 package com.banking.app.model;
 
-public class Employee {
+public class Customer {
 	
-	private int employeeId;
+	private int customerId;
 	private String username;
 	private String password;
 	private String firstName;
 	private String lastName;
+	private boolean approvedCustomer;
 	
-	public Employee() {
+	public Customer() {
 		
 	}
 
-	public Employee(int employeeId, String username, String password, String firstName, String lastName) {
+	public Customer(int customerId, String username, String password, String firstName, String lastName,
+			boolean approvedCustomer) {
 		super();
-		this.employeeId = employeeId;
+		this.customerId = customerId;
 		this.username = username;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.approvedCustomer = approvedCustomer;
 	}
 
-	public int getEmployeeId() {
-		return employeeId;
+	public int getCustomerId() {
+		return customerId;
 	}
 
-	public void setEmployeeId(int employeeId) {
-		this.employeeId = employeeId;
+	public void setCustomerId(int customerId) {
+		this.customerId = customerId;
 	}
 
 	public String getUsername() {
@@ -61,11 +64,19 @@ public class Employee {
 		this.lastName = lastName;
 	}
 
+	public boolean isApprovedCustomer() {
+		return approvedCustomer;
+	}
+
+	public void setApprovedCustomer(boolean approvedCustomer) {
+		this.approvedCustomer = approvedCustomer;
+	}
+
 	@Override
 	public String toString() {
-		return "Employee [employeeId=" + employeeId + ", username=" + username + ", password=" + password
-				+ ", firstName=" + firstName + ", lastName=" + lastName + "]";
+		return "Customer [customerId=" + customerId + ", username=" + username + ", password=" + password
+				+ ", firstName=" + firstName + ", lastName=" + lastName + ", approvedCustomer=" + approvedCustomer
+				+ "]";
 	}
-	
-	
+
 }
