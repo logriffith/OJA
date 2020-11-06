@@ -4,42 +4,29 @@ import java.util.Date;
 
 public class Transaction {
 	
-	private int customerId;
-	private int accountId;
+	private int transactionId;
 	private String transactionType;
 	private double transactionAmount;
-	private double currentBalance;
 	private Date date;
 	
 	public Transaction() {
 		
 	}
-
-	public Transaction(int customerId, int accountId, String transactionType, double transactionAmount,
-			double currentBalance, Date date) {
+	
+	public Transaction(int transactionId, String transactionType, double transactionAmount, Date date) {
 		super();
-		this.customerId = customerId;
-		this.accountId = accountId;
+		this.transactionId = transactionId;
 		this.transactionType = transactionType;
 		this.transactionAmount = transactionAmount;
-		this.currentBalance = currentBalance;
 		this.date = date;
 	}
 
-	public int getCustomerId() {
-		return customerId;
+	public int getTransactionId() {
+		return transactionId;
 	}
 
-	public void setCustomerId(int customerId) {
-		this.customerId = customerId;
-	}
-
-	public int getAccountId() {
-		return accountId;
-	}
-
-	public void setAccountId(int accountId) {
-		this.accountId = accountId;
+	public void setTransactionId(int transactionId) {
+		this.transactionId = transactionId;
 	}
 
 	public String getTransactionType() {
@@ -58,14 +45,6 @@ public class Transaction {
 		this.transactionAmount = transactionAmount;
 	}
 
-	public double getCurrentBalance() {
-		return currentBalance;
-	}
-
-	public void setCurrentBalance(double currentBalance) {
-		this.currentBalance = currentBalance;
-	}
-
 	public Date getDate() {
 		return date;
 	}
@@ -74,13 +53,13 @@ public class Transaction {
 		this.date = date;
 	}
 
+
 	@Override
 	public String toString() {
-		return "Transaction [customerId=" + customerId + ", accountId=" + accountId + ", transactionType="
-				+ transactionType + ", transactionAmount=" + transactionAmount + ", currentBalance=" + currentBalance
-				+ ", date=" + date + "]";
+		return "Transaction [transactionId=" + transactionId + ", transactionType=" + transactionType
+				+ ", transactionAmount=" + transactionAmount + ", date=" + date + "]";
 	}
-
+	
 	
 	
 }
