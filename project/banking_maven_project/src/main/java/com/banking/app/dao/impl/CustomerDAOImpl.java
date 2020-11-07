@@ -119,12 +119,6 @@ public class CustomerDAOImpl implements CustomerDAO{
 	}
 
 	@Override
-	public List<Transaction> getAllTransactionsForAccount(int accountId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public int getCustomerId(String username, String password) throws BusinessException {
 		int customerId = 0;
 		try(Connection connection = PostgresSqlConnection.getConnection()){
@@ -138,7 +132,7 @@ public class CustomerDAOImpl implements CustomerDAO{
 				log.debug("ID found");
 				customerId = resultSet.getInt("customer_id");
 			} else {
-				throw new BusinessException("There is no customer with that username and password.");
+				throw new BusinessException("I'm sorry. There is no customer with that username and password.");
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			log.debug(e);
@@ -148,31 +142,44 @@ public class CustomerDAOImpl implements CustomerDAO{
 	}
 
 	@Override
-	public int withdrawFromAccount(int accountId) {
+	public List<Transaction> getAllTransactionsForAccount(int accountId, int customerId) throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int updateAccountBalance(int accountId, int customerId) throws BusinessException {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int depositInAccount(int accountId) {
+	public int newAccountId(int customerId) throws BusinessException {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int makeTransfer(int fromAccountId, int toAccountId) {
+	public int createAccount(Account account) throws BusinessException {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int newAccount(Account account) {
+	public int newCustomer(String newUsername, String newPassword, String firstName, String lastName,
+			boolean approvalStatus) throws BusinessException {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int newCustomer(Customer customer) {
+	public int newTransactionForAccount(int accountId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int newAccountTransaction(Transaction transaction) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

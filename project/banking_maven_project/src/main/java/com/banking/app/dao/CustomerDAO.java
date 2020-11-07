@@ -15,11 +15,15 @@ public interface CustomerDAO {
 	public String getPassword(int customerId) throws BusinessException;
 	public Account getAccount(int accountId, int customerId) throws BusinessException;
 	public List<Account> getAllAccounts(int customerId) throws BusinessException;
-	public List<Transaction> getAllTransactionsForAccount(int accountId) throws BusinessException;
+	public List<Transaction> getAllTransactionsForAccount(int accountId, int customerId) throws BusinessException;
 	public int getCustomerId(String username, String password) throws BusinessException;
-	public int withdrawFromAccount(int accountId) throws BusinessException;
-	public int depositInAccount(int accountId) throws BusinessException;
-	public int makeTransfer(int fromAccountId, int toAccountId) throws BusinessException;
-	public int newAccount(Account account) throws BusinessException;
-	public int newCustomer(Customer customer) throws BusinessException;
+//	public int withdrawFromAccount(int accountId) throws BusinessException;
+//	public int depositInAccount(int accountId) throws BusinessException;
+//	public int makeTransfer(int fromAccountId, int toAccountId) throws BusinessException;
+	public int updateAccountBalance(int accountId, int customerId) throws BusinessException;
+	public int newAccountId(int customerId) throws BusinessException;
+	public int createAccount(Account account) throws BusinessException;
+	public int newCustomer(String newUsername, String newPassword, String firstName, String lastName, boolean approvalStatus) throws BusinessException;
+	public int newTransactionForAccount(int accountId);
+	public int newAccountTransaction (Transaction transaction);
 }
