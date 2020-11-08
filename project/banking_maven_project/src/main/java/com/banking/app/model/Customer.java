@@ -23,6 +23,14 @@ public class Customer {
 		this.lastName = lastName;
 		this.approvedCustomer = approvedCustomer;
 	}
+	
+
+	public Customer(int customerId, String firstName, String lastName) {
+		super();
+		this.customerId = customerId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
 
 	public int getCustomerId() {
 		return customerId;

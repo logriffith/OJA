@@ -10,8 +10,8 @@ public class CustomerQueries {
 			+ "from bank.all_accounts inner join bank.customer_accounts on all_accounts.account_id = customer_accounts.account_id"
 			+ " where customer_id = ? and all_accounts.account_id = ?";
 	
-	public static final String GET_CUSTOMERID = "select customer_id from bank.customers where username = ? and customer_password = ?";
+	public static final String GET_CUSTOMER_INFO = "select customer_id, first_name, last_name from bank.customers where username = ? and customer_password = ?";
 
-	
+	public static final String UPDATE_BALANCE_BY_ACCOUNTID = "update bank.all_accounts set balance = ? where account_id = ?";
 }
 

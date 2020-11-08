@@ -23,55 +23,55 @@ public class CustomerDAOImpl implements CustomerDAO{
 	
 	public static Logger log = Logger.getLogger(CustomerDAOImpl.class);
 
-	@Override
-	public String getUsername(int customerId) throws BusinessException {
-		log.debug("In getUsername()");
-		String username = null;
-		try(Connection connection = PostgresSqlConnection.getConnection()){
-			String sql = UserQueries.GET_USERNAME_BY_CUSTOMER_ID;
-			PreparedStatement preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setInt(1, customerId);
-			ResultSet resultSet = preparedStatement.executeQuery();
-			if (resultSet.next()) {
-				log.debug("username found");
-				username = resultSet.getString("username");
-			} else {
-				throw new BusinessException("Invalid customer ID. There is no username for the customer ID = "+customerId);
-			}
-		} catch (ClassNotFoundException | SQLException e) {
-			log.debug(e);
-			throw new BusinessException("Internal error occurred. Please contact the System Administrator");
-		}
-		
-		return username;
-	}
+//	@Override
+//	public String getUsername(int customerId) throws BusinessException {
+//		log.debug("In CustomerDAOImpl getUsername()");
+//		String username = null;
+//		try(Connection connection = PostgresSqlConnection.getConnection()){
+//			String sql = UserQueries.GET_USERNAME_BY_CUSTOMER_ID;
+//			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+//			preparedStatement.setInt(1, customerId);
+//			ResultSet resultSet = preparedStatement.executeQuery();
+//			if (resultSet.next()) {
+//				log.debug("username found");
+//				username = resultSet.getString("username");
+//			} else {
+//				throw new BusinessException("Invalid customer ID. There is no username for the customer ID = "+customerId);
+//			}
+//		} catch (ClassNotFoundException | SQLException e) {
+//			log.debug(e);
+//			throw new BusinessException("Internal error occurred. Please contact the System Administrator");
+//		}
+//		
+//		return username;
+//	}
 
-	@Override
-	public String getPassword(int customerId) throws BusinessException {
-		log.debug("In getPassword()");
-		String password = null;
-		try(Connection connection = PostgresSqlConnection.getConnection()){
-			String sql = UserQueries.GET_PASSWORD_BY_CUSTOMER_ID;
-			PreparedStatement preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setInt(1, customerId);
-			ResultSet resultSet = preparedStatement.executeQuery();
-			if (resultSet.next()) {
-				log.debug("password found");
-				password = resultSet.getString("customer_password");
-			} else {
-				throw new BusinessException("Invalid customer ID. There is no password for the customer ID = "+customerId);
-			}
-		} catch (ClassNotFoundException | SQLException e) {
-			log.debug(e);
-			throw new BusinessException("Internal error occurred. Please contact the System Administrator");
-		}
-		
-		return password;
-	}
+//	@Override
+//	public String getPassword(int customerId) throws BusinessException {
+//		log.debug("In CustomerDAOImpl getPassword()");
+//		String password = null;
+//		try(Connection connection = PostgresSqlConnection.getConnection()){
+//			String sql = UserQueries.GET_PASSWORD_BY_CUSTOMER_ID;
+//			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+//			preparedStatement.setInt(1, customerId);
+//			ResultSet resultSet = preparedStatement.executeQuery();
+//			if (resultSet.next()) {
+//				log.debug("password found");
+//				password = resultSet.getString("customer_password");
+//			} else {
+//				throw new BusinessException("Invalid customer ID. There is no password for the customer ID = "+customerId);
+//			}
+//		} catch (ClassNotFoundException | SQLException e) {
+//			log.debug(e);
+//			throw new BusinessException("Internal error occurred. Please contact the System Administrator");
+//		}
+//		
+//		return password;
+//	}
 
 	@Override
 	public Account getAccount(int accountId, int customerId) throws BusinessException {
-		log.debug("In getAccount()");
+		log.debug("In CustomerDAOImpl getAccount()");
 		Account account = null; 
 		try(Connection connection = PostgresSqlConnection.getConnection()){
 			String sql = CustomerQueries.GET_ACCOUNT_BY_ACCOUNTID_AND_CUSTOMERID;
@@ -84,18 +84,18 @@ public class CustomerDAOImpl implements CustomerDAO{
 				account = new Account(accountId, resultSet.getString("account_type"),
 						resultSet.getDouble("balance"), resultSet.getBoolean("approved"));
 			}else {
-				throw new BusinessException("There are no accounts with account ID = "+accountId+" and customer ID = "+customerId);
+				throw new BusinessException("There are no accounts with account number "+accountId+" under your name.");
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			log.debug(e);
-			throw new BusinessException("Internal error occurred. Please contact the System Administrator");
+			throw new BusinessException("Internal error occurred. Please contact the System Administrator.");
 		}
 		return account;
 	}
 
 	@Override
 	public List<Account> getAllAccounts(int customerId) throws BusinessException {
-		log.debug("In getAllAccounts()");
+		log.debug("In CustomerDAOImpl getAllAccounts()");
 		List<Account> accountList = new ArrayList<>();
 		try(Connection connection = PostgresSqlConnection.getConnection()){
 			String sql = CustomerQueries.GET_ALL_ACCOUNTS_BY_CUSTOMERID;
@@ -109,36 +109,36 @@ public class CustomerDAOImpl implements CustomerDAO{
 				accountList.add(account);
 			}
 			if(accountList.size() == 0) {
-				throw new BusinessException("The customer with ID = "+customerId+" doesn't have an account yet.");
+				throw new BusinessException("You do not have an account yet.");
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			log.debug(e);
-			throw new BusinessException("Internal error occurred. Please contact the System Administrator");
+			throw new BusinessException("Internal error occurred. Please contact the System Administrator.");
 		}
 		return accountList;
 	}
 
 	@Override
-	public int getCustomerId(String username, String password) throws BusinessException {
-		int customerId = 0;
+	public Customer getCustomerInfo(String username, String password) throws BusinessException {
+		Customer customer = null;
+		log.debug("In CustomerDAOImpl getCustomerInfo()");
 		try(Connection connection = PostgresSqlConnection.getConnection()){
-			log.debug("In getCustomerId()");
-			String sql = CustomerQueries.GET_CUSTOMERID;
+			String sql = CustomerQueries.GET_CUSTOMER_INFO;
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, username);
 			preparedStatement.setString(2, password);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			if(resultSet.next()) {
-				log.debug("ID found");
-				customerId = resultSet.getInt("customer_id");
+				log.debug("customer found");
+				customer = new Customer(resultSet.getInt("customer_id"),resultSet.getString("first_name"), resultSet.getString("last_name"));
 			} else {
 				throw new BusinessException("I'm sorry. There is no customer with that username and password.");
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			log.debug(e);
-			throw new BusinessException("Internal error occurred. Please contact the System Administrator");
+			throw new BusinessException("Internal error occurred. Please contact the System Administrator.");
 		}
-		return customerId;
+		return customer;
 	}
 
 	@Override
@@ -148,9 +148,19 @@ public class CustomerDAOImpl implements CustomerDAO{
 	}
 
 	@Override
-	public int updateAccountBalance(int accountId, int customerId) throws BusinessException {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateAccountBalance(double newBalance, int accountId) throws BusinessException {
+		int c = 0;
+		try(Connection connection = PostgresSqlConnection.getConnection()){
+			String sql = CustomerQueries.UPDATE_BALANCE_BY_ACCOUNTID;
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setDouble(1, newBalance);
+			preparedStatement.setInt(2, accountId);
+			c = preparedStatement.executeUpdate();
+		} catch (ClassNotFoundException | SQLException e) {
+			log.debug(e);
+			throw new BusinessException("Internal error occurred. Please contact the System Administrator.");
+		}
+		return c;
 	}
 
 	@Override
