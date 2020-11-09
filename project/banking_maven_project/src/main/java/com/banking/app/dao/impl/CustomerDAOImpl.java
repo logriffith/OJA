@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.spi.DirStateFactory.Result;
+
 import org.apache.log4j.Logger;
 
 import com.banking.app.dao.CustomerDAO;
@@ -68,7 +70,28 @@ public class CustomerDAOImpl implements CustomerDAO{
 //		
 //		return password;
 //	}
-
+	@Override
+	public Account getAccountById(int accountId) throws BusinessException {
+		log.debug("In CustomerDAOImpl getAccountById()");
+		Account account = null;
+		try (Connection connection = PostgresSqlConnection.getConnection()){
+			String sql = CustomerQueries.GET_ACCOUNT_BY_ACCOUNTID;
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, accountId);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if(resultSet.next()) {
+				account = new Account(accountId, resultSet.getString("account_type"),
+						resultSet.getDouble("balance"),resultSet.getBoolean("approved"));
+			}else {
+				throw new BusinessException("I'm sorry, that account does not exist.");
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			log.debug(e);
+			throw new BusinessException("Internal error occurred. Please contact the System Administrator.");
+		}
+		return account;
+	}
+	
 	@Override
 	public Account getAccount(int accountId, int customerId) throws BusinessException {
 		log.debug("In CustomerDAOImpl getAccount()");
@@ -117,7 +140,32 @@ public class CustomerDAOImpl implements CustomerDAO{
 		}
 		return accountList;
 	}
-
+	
+	@Override
+	public List<Transaction> getAllTransactionsForAccount(int accountId, int customerId) throws BusinessException {
+		log.debug("In CustomerDAOImpl getAllTransactionsForAccount()");
+		List<Transaction> transactionList = new ArrayList<>();
+		try(Connection connection = PostgresSqlConnection.getConnection()){
+			String sql = CustomerQueries.GET_ALL_TRANSACTIONS_FOR_ACCOUNTID;
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, accountId);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				log.debug("transaction found");
+				Transaction transaction = new Transaction(resultSet.getInt("account_id"), resultSet.getString("transaction_type"),
+						resultSet.getDouble("amount"), resultSet.getDate("transaction_date"));
+				transactionList.add(transaction);
+			}
+			if(transactionList.size() == 0) {
+				throw new BusinessException("There are no transactions for this account yet.");
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			log.debug(e);
+			throw new BusinessException("Internal error occurred. Please contact the System Administrator.");
+		}
+		return transactionList;
+	}
+	
 	@Override
 	public Customer getCustomerInfo(String username, String password) throws BusinessException {
 		Customer customer = null;
@@ -142,14 +190,9 @@ public class CustomerDAOImpl implements CustomerDAO{
 	}
 
 	@Override
-	public List<Transaction> getAllTransactionsForAccount(int accountId, int customerId) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public int updateAccountBalance(double newBalance, int accountId) throws BusinessException {
 		int c = 0;
+		log.debug("In CustomerDAOImpl updateAccountBalance()");
 		try(Connection connection = PostgresSqlConnection.getConnection()){
 			String sql = CustomerQueries.UPDATE_BALANCE_BY_ACCOUNTID;
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);

@@ -10,6 +10,7 @@ import com.banking.app.exception.BusinessException;
 import com.banking.app.main.util.BankingMenus;
 import com.banking.app.model.Account;
 import com.banking.app.model.Customer;
+import com.banking.app.model.Transaction;
 import com.banking.app.service.impl.CustomerServiceImpl;
 
 
@@ -23,9 +24,9 @@ public class BankingMain {
 		CustomerServiceImpl customerServiceImpl = new CustomerServiceImpl();
 		int option = 0;
 		log.info("----------Welcome to Lew's Banking App----------");
-		//Main Menu
 		log.debug("In main menu");
 		do {
+			//Main Menu
 			BankingMenus.mainMenu();
 			try{
 				option = Integer.parseInt(scanner.nextLine());
@@ -39,13 +40,13 @@ public class BankingMain {
 						log.debug("In customer log in");
 						boolean acceptedLogin = false;
 						try {
-						log.info("Hello valued customer!");
-						log.info("Please enter your username:");
-						String username = scanner.nextLine();
-						log.info("Please enter your password:");
-						String password = scanner.nextLine();
-						customer = customerServiceImpl.customerLogIn(username, password);
-						acceptedLogin = true;
+							log.info("Hello valued customer!");
+							log.info("Please enter your username:");
+							String username = scanner.nextLine();
+							log.info("Please enter your password:");
+							String password = scanner.nextLine();
+							customer = customerServiceImpl.customerLogIn(username, password);
+							acceptedLogin = true;
 						} catch(BusinessException e) {
 							log.info(e.getMessage());
 						} catch(Exception e) {
@@ -78,12 +79,15 @@ public class BankingMain {
 													if (customerAccountsMenu<=7 && customerAccountsMenu>=1) {
 														switch(customerAccountsMenu) {
 														case 1:
-															try {//needs work due to PSQLException
+															try {
 																log.debug("in View All Accounts");
 																List<Account> allCustomerAccounts = customerServiceImpl.getAllAccounts(customer.getCustomerId());
-																log.info("Okay the following acounts are in your name:");
-																for (Account a : allCustomerAccounts) {
-																	log.info(a);
+																if(allCustomerAccounts.size() != 0) {
+																	log.info("Okay the following acounts are in your name:\n");
+																	log.info("Account Number      Account Type");
+																	for (Account a : allCustomerAccounts) {
+																		log.info(a.getAccountId()+"            "+a.getAccountType());//change output format later
+																	}
 																}
 															}catch(BusinessException e){
 																log.info(e.getMessage());
@@ -100,6 +104,9 @@ public class BankingMain {
 																log.info("Okay, "+customer.getFirstName()+" let me get that account for you.");
 																log.debug(account);
 																log.info("The balance for account "+ accountId+ " is $"+account.getBalance());
+															}catch (NumberFormatException e) {
+																log.debug(e);
+																log.info("I'm sorry, the account number must be a positive integer.");
 															}catch(BusinessException e) {
 																log.info(e.getMessage());
 															}catch(Exception e) {
@@ -107,11 +114,28 @@ public class BankingMain {
 															}
 															break;
 														case 3:
-															log.debug("in View Account Transactions");
-															System.out.println("This option is under construction.");//remove this later
+															try {
+																log.debug("in View Account Transactions");
+																log.info("What is the account number?");
+																int accountId = Integer.parseInt(scanner.nextLine());
+																List<Transaction> transactionlist = customerServiceImpl.getAllTransactionsForAccount(accountId, customer.getCustomerId());
+																if(transactionlist.size() != 0) {
+																	log.info("Okay, here are the transactions for that account:\n");
+																	log.info("Account Number     Type of Transaction       Amount         Date");
+																	for (Transaction t:transactionlist) {
+																		log.info(t.getAccountId()+"         "+t.getTransactionType()+"       "+t.getTransactionAmount()+"       "+t.getDate());//format this later
+																	}
+																}
+															}catch (NumberFormatException e) {
+																log.debug(e);
+																log.info("I'm sorry, the account number must be a positive integer.");
+															}catch(BusinessException e) {
+																log.info(e.getMessage());
+															}catch(Exception e) {
+																log.info("I'm sorry, there was a problem accessing your account.");
+															}
 															break;
 														case 4:
-															
 															try {
 																log.debug("in Make a Withdrawal");
 																log.info("What is the account number?");
@@ -119,11 +143,13 @@ public class BankingMain {
 																log.info("How much money would you like to withdraw?");
 																double amount = Double.parseDouble(scanner.nextLine());
 																customerServiceImpl.withdrawFromAccount(accountId, customer.getCustomerId(), amount);
-																log.info("Okay, here is $"+amount);
+															}catch (NumberFormatException e) {
+																log.debug(e);
+																log.info("I'm sorry, the account number must be a positive integer and the amount to be withdrawn must be a positive number.");
 															}catch (BusinessException e){
 																log.info(e.getMessage());
 															}catch (Exception e) {
-																log.info("I'm sorry, there was a problem processing your transaction.");
+																log.info("I'm sorry, there was a problem processing your withdrawal.");
 															}
 															break;
 														case 5:
@@ -134,7 +160,9 @@ public class BankingMain {
 																log.info("How much money would you like to deposit?");
 																double amount = Double.parseDouble(scanner.nextLine());
 																customerServiceImpl.depositInAccount(accountId, customer.getCustomerId(), amount);
-																log.info("Okay, your deposit has been processed.");
+															}catch (NumberFormatException e) {
+																log.debug(e);
+																log.info("I'm sorry, the account number must be a positive integer and the amount to be deposited must be a positive number.");
 															}catch (BusinessException e) {
 																log.info(e.getMessage());
 															}catch (Exception e) {
@@ -142,8 +170,47 @@ public class BankingMain {
 															}
 															break;
 														case 6:
-															log.debug("in Transfer Funds");
-															System.out.println("This option is under construction.");//remove this later
+															try {
+																log.debug("in Transfer Funds");
+																log.info("From which account?");
+																int accountId = Integer.parseInt(scanner.nextLine());
+																log.info("To which account?");
+																int transferToAccountId = Integer.parseInt(scanner.nextLine());
+																log.info("How much much would you like to transfer?");
+																double amount = Double.parseDouble(scanner.nextLine());
+																if (customerServiceImpl.getAccount(transferToAccountId, customer.getCustomerId()) != null) {
+																	//both accounts belong to the same customer
+																	log.info("Are you sure that you want to make this transfer? [y/n]");
+																	String response = scanner.nextLine();
+																	if(response.matches("[yY]{1}")) {
+																		customerServiceImpl.makeTransfer(accountId, customer.getCustomerId(), transferToAccountId, amount);
+																	}else if(response.matches("[nN]{1}")){
+																		log.info("Okay, the transfer has been canceled.");
+																	}else {
+																		log.info("I'm sorry, but we cannot process the transfer unless you approve it.");
+																	}
+																}else { 
+																	//accounts belong to different customers
+																	log.info("The customer owning the other account must first accept the transfer.");
+																	log.info("Hello, "+customer.getFirstName()+" "+customer.getLastName()+ " would like to transfer $"+amount+" into your account.");
+																	log.info("Would you like to accept the transfer? [y/n]");
+																	String response = scanner.nextLine();
+																	if(response.matches("[yY]{1}")) {
+																		customerServiceImpl.makeTransfer(accountId, customer.getCustomerId(), transferToAccountId, amount);
+																	}else if(response.matches("[nN]{1}")) {
+																		log.info("Okay, the funds will not be transferred to your account.");
+																	}else {
+																		log.info("I'm sorry, but we cannot process the transfer unless it is approved.");
+																	}
+																}
+															}catch (NumberFormatException e) {
+																log.debug(e);
+																log.info("I'm sorry, the account numbers must be positive integers, and the amount to be transferred must be a positive number.");
+															}catch (BusinessException e) {
+																log.info(e.getMessage());
+															}catch (Exception e) {
+																log.info("I'm sorry, there was a problem processing your transfer.");
+															}
 															break;
 														case 7:
 															log.info("Returning to Customer Menu...");

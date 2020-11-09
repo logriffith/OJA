@@ -5,6 +5,7 @@ import java.util.Date;
 public class Transaction {
 	
 	private int transactionId;
+	private int accountId;
 	private String transactionType;
 	private double transactionAmount;
 	private Date date;
@@ -13,9 +14,18 @@ public class Transaction {
 		
 	}
 	
-	public Transaction(int transactionId, String transactionType, double transactionAmount, Date date) {
+	public Transaction(int transactionId, int accountId, String transactionType, double transactionAmount, Date date) {
 		super();
 		this.transactionId = transactionId;
+		this.accountId = accountId;
+		this.transactionType = transactionType;
+		this.transactionAmount = transactionAmount;
+		this.date = date;
+	}
+	
+	public Transaction(int accountId, String transactionType, double transactionAmount, Date date) {
+		super();
+		this.accountId = accountId;
 		this.transactionType = transactionType;
 		this.transactionAmount = transactionAmount;
 		this.date = date;
@@ -53,13 +63,18 @@ public class Transaction {
 		this.date = date;
 	}
 
+	public int getAccountId() {
+		return accountId;
+	}
+
+	public void setAccountId(int accountId) {
+		this.accountId = accountId;
+	}
 
 	@Override
 	public String toString() {
-		return "Transaction [transactionId=" + transactionId + ", transactionType=" + transactionType
-				+ ", transactionAmount=" + transactionAmount + ", date=" + date + "]";
+		return "Transaction [transactionId=" + transactionId + ", accountId=" + accountId + ", transactionType="
+				+ transactionType + ", transactionAmount=" + transactionAmount + ", date=" + date + "]";
 	}
-	
-	
 	
 }

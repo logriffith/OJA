@@ -14,6 +14,7 @@ public interface CustomerDAO {
 //	public String getUsername(int customerId) throws BusinessException;
 //	public String getPassword(int customerId) throws BusinessException;
 	public Account getAccount(int accountId, int customerId) throws BusinessException;
+	public Account getAccountById(int accountId) throws BusinessException;
 	public List<Account> getAllAccounts(int customerId) throws BusinessException;
 	public List<Transaction> getAllTransactionsForAccount(int accountId, int customerId) throws BusinessException;
 	public Customer getCustomerInfo(String username, String password) throws BusinessException;
