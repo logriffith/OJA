@@ -1,5 +1,7 @@
 package com.banking.app.main;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -22,6 +24,8 @@ public class BankingMain {
 		Scanner scanner = new Scanner(System.in);
 		Customer customer = null;
 		CustomerServiceImpl customerServiceImpl = new CustomerServiceImpl();
+		int maxTransactionId = 0;
+		int maxAccountId = 0;
 		int option = 0;
 		log.info("----------Welcome to Lew's Banking App----------");
 		log.debug("In main menu");
@@ -119,11 +123,12 @@ public class BankingMain {
 																log.info("What is the account number?");
 																int accountId = Integer.parseInt(scanner.nextLine());
 																List<Transaction> transactionlist = customerServiceImpl.getAllTransactionsForAccount(accountId, customer.getCustomerId());
+																SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a z");
 																if(transactionlist.size() != 0) {
 																	log.info("Okay, here are the transactions for that account:\n");
 																	log.info("Account Number     Type of Transaction       Amount         Date");
-																	for (Transaction t:transactionlist) {
-																		log.info(t.getAccountId()+"         "+t.getTransactionType()+"       "+t.getTransactionAmount()+"       "+t.getDate());//format this later
+																	for (Transaction t:transactionlist) {																		//ask Dr. Vinay about this
+																		log.info(t.getAccountId()+"         "+t.getTransactionType()+"       "+t.getTransactionAmount()+"       "+sdf.format(t.getDate()));//format this later
 																	}
 																}
 															}catch (NumberFormatException e) {
@@ -143,6 +148,11 @@ public class BankingMain {
 																log.info("How much money would you like to withdraw?");
 																double amount = Double.parseDouble(scanner.nextLine());
 																customerServiceImpl.withdrawFromAccount(accountId, customer.getCustomerId(), amount);
+																List<Integer> transactionIdlist = customerServiceImpl.getAllTransactionIds();
+																maxTransactionId = transactionIdlist.get(transactionIdlist.size()-1);
+																Date date = new Date();
+																Transaction transaction = new Transaction((maxTransactionId + 1), accountId, "withdrawal", amount, date);
+																customerServiceImpl.makeNewTransaction(transaction, (maxTransactionId + 1), accountId);
 															}catch (NumberFormatException e) {
 																log.debug(e);
 																log.info("I'm sorry, the account number must be a positive integer and the amount to be withdrawn must be a positive number.");
@@ -160,6 +170,11 @@ public class BankingMain {
 																log.info("How much money would you like to deposit?");
 																double amount = Double.parseDouble(scanner.nextLine());
 																customerServiceImpl.depositInAccount(accountId, customer.getCustomerId(), amount);
+																List<Integer> transactionIdlist = customerServiceImpl.getAllTransactionIds();
+																maxTransactionId = transactionIdlist.get(transactionIdlist.size()-1);
+																Date date = new Date();
+																Transaction transaction = new Transaction((maxTransactionId + 1), accountId, "deposit", amount, date);
+																customerServiceImpl.makeNewTransaction(transaction, (maxTransactionId + 1), accountId);
 															}catch (NumberFormatException e) {
 																log.debug(e);
 																log.info("I'm sorry, the account number must be a positive integer and the amount to be deposited must be a positive number.");
@@ -176,20 +191,29 @@ public class BankingMain {
 																int accountId = Integer.parseInt(scanner.nextLine());
 																log.info("To which account?");
 																int transferToAccountId = Integer.parseInt(scanner.nextLine());
+																log.info("Is this your account also? [y/n]");
+																String accountOwner = scanner.nextLine();
 																log.info("How much much would you like to transfer?");
 																double amount = Double.parseDouble(scanner.nextLine());
-																if (customerServiceImpl.getAccount(transferToAccountId, customer.getCustomerId()) != null) {
+																if(accountOwner.matches("[yY]{1}")) {
 																	//both accounts belong to the same customer
 																	log.info("Are you sure that you want to make this transfer? [y/n]");
 																	String response = scanner.nextLine();
 																	if(response.matches("[yY]{1}")) {
 																		customerServiceImpl.makeTransfer(accountId, customer.getCustomerId(), transferToAccountId, amount);
+																		List<Integer> transactionIdlist = customerServiceImpl.getAllTransactionIds();
+																		maxTransactionId = transactionIdlist.get(transactionIdlist.size()-1);
+																		Date date = new Date();
+																		Transaction transactionFrom = new Transaction((maxTransactionId + 1), accountId, "transferred out", amount, date);
+																		customerServiceImpl.makeNewTransaction(transactionFrom, (maxTransactionId + 1), accountId);
+																		Transaction transactionTo = new Transaction((maxTransactionId + 2), transferToAccountId, "transferred in", amount, date);
+																		customerServiceImpl.makeNewTransaction(transactionTo, (maxTransactionId + 2), transferToAccountId);
 																	}else if(response.matches("[nN]{1}")){
 																		log.info("Okay, the transfer has been canceled.");
 																	}else {
 																		log.info("I'm sorry, but we cannot process the transfer unless you approve it.");
 																	}
-																}else { 
+																}else if(accountOwner.matches("[nN]{1}")) {
 																	//accounts belong to different customers
 																	log.info("The customer owning the other account must first accept the transfer.");
 																	log.info("Hello, "+customer.getFirstName()+" "+customer.getLastName()+ " would like to transfer $"+amount+" into your account.");
@@ -197,11 +221,20 @@ public class BankingMain {
 																	String response = scanner.nextLine();
 																	if(response.matches("[yY]{1}")) {
 																		customerServiceImpl.makeTransfer(accountId, customer.getCustomerId(), transferToAccountId, amount);
+																		List<Integer> transactionIdlist = customerServiceImpl.getAllTransactionIds();
+																		maxTransactionId = transactionIdlist.get(transactionIdlist.size()-1);
+																		Date date = new Date();
+																		Transaction transactionFrom = new Transaction((maxTransactionId + 1), accountId, "transferred out", amount, date);
+																		customerServiceImpl.makeNewTransaction(transactionFrom, (maxTransactionId + 1), accountId);
+																		Transaction transactionTo = new Transaction((maxTransactionId + 2), transferToAccountId, "transferred in", amount, date);
+																		customerServiceImpl.makeNewTransaction(transactionTo, (maxTransactionId + 2), transferToAccountId);
 																	}else if(response.matches("[nN]{1}")) {
 																		log.info("Okay, the funds will not be transferred to your account.");
 																	}else {
 																		log.info("I'm sorry, but we cannot process the transfer unless it is approved.");
 																	}
+																}else {
+																	log.info("I'm sorry, I don't understand your answer.");
 																}
 															}catch (NumberFormatException e) {
 																log.debug(e);

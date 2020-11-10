@@ -1,5 +1,6 @@
 package com.banking.app.service.impl;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -113,14 +114,7 @@ public class CustomerServiceImpl implements CustomerService{
 	public void makeTransfer(int accountId, int customerId, int transferToAccountId, double amount) throws BusinessException {
 		if(amount > 0) {
 			Account fromAccount = customerDAOImpl.getAccount(accountId, customerId);
-			Account transferToAccount = null;
-			if(customerDAOImpl.getAccount(transferToAccountId, customerId) != null) {
-				//both accounts owned by same customer
-				transferToAccount = customerDAOImpl.getAccount(transferToAccountId, customerId);
-			}else {
-				//the other account is owned by a different customer
-				transferToAccount = customerDAOImpl.getAccountById(transferToAccountId);
-			}
+			Account transferToAccount = customerDAOImpl.getAccountById(transferToAccountId);
 			double fromAccountBalance = fromAccount.getBalance();
 			double transferToAccountBalance = transferToAccount.getBalance();
 			if ((fromAccountBalance - amount) >= 0) {
@@ -153,6 +147,33 @@ public class CustomerServiceImpl implements CustomerService{
 			boolean approvalStatus) throws BusinessException {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public void makeNewTransaction(Transaction transaction,int transactionId, int accountId) throws BusinessException {
+		int x = customerDAOImpl.newTransactionForAccount(transactionId, accountId);
+		int y = customerDAOImpl.newAccountTransaction(transaction);
+		if(x > 0 &&  y > 0) {
+			log.info("This transaction was recorded.");
+		}else {
+			throw new BusinessException("Invalid transaction.");
+		}
+	}
+
+	@Override
+	public List<Integer> getAllTransactionIds() throws BusinessException {
+		List<Integer> transactionIdList = null;
+		transactionIdList = customerDAOImpl.getAllTransactionIds();
+		Collections.sort(transactionIdList);
+		return transactionIdList;
+	}
+
+	@Override
+	public List<Integer> getAllAccountIds() throws BusinessException {
+		List<Integer> accountIdList = null;
+		accountIdList = customerDAOImpl.getAllAccountIds();
+		Collections.sort(accountIdList);
+		return accountIdList;
 	}
 
 

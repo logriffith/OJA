@@ -19,5 +19,15 @@ public class CustomerQueries {
 	public static final String GET_ALL_TRANSACTIONS_FOR_ACCOUNTID = "select account_transactions.account_id,transaction_type, amount, transaction_date "
 			+ "from bank.all_transactions inner join bank.account_transactions on all_transactions.transaction_id = account_transactions.transaction_id "
 			+ "where account_transactions.account_id = ?";
+	
+	public static final String NEW_TRANSACTION_FOR_ACCOUNTID = "insert into bank.account_transactions (transaction_id,account_id) values (? , ?)";
+	
+	public static final String NEW_TRANSACTION = "insert into bank.all_transactions (transaction_id,transaction_type,amount,transaction_date) "
+			+ "values (? , ? , ? ,?)";
+	
+	public static final String GET_ALL_TRANSACTIONIDS = "select transaction_id from bank.account_transactions";
+	
+	public static final String GET_ALL_ACCOUNTIDS = "select account_id from bank.customer_accounts";
+	
 }
 

@@ -19,6 +19,9 @@ public interface CustomerService {
 	public void withdrawFromAccount(int accountId, int customerId, double amount) throws BusinessException;
 	public void depositInAccount(int accountId, int customerId, double amount) throws BusinessException;
 	public void makeTransfer(int accountId, int customerId, int transferToAccountId, double amount) throws BusinessException;
+	public void makeNewTransaction(Transaction transaction,int transactionId, int accountId) throws BusinessException;
 	public int newAccount(int customerId) throws BusinessException;
 	public int newCustomer(String newUsername, String newPassword, String firstName, String lastName, boolean approvalStatus) throws BusinessException;
+	public List<Integer> getAllTransactionIds() throws BusinessException;
+	public List<Integer> getAllAccountIds() throws BusinessException;
 }

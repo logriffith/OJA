@@ -25,7 +25,7 @@ public class BankingMenus {
 		log.info("Customer Menu:");
 		log.info("======================================");
 		log.info("(1) Would You Like to Open a New Account?");
-		log.info("(2) Open an Existing Account?");
+		log.info("(2) Account Banking Options");
 		log.info("(3) Log Out");
 		log.info("======================================");
 		log.info("Please be sure to enter an appropriate number between 1 and 3.\n");

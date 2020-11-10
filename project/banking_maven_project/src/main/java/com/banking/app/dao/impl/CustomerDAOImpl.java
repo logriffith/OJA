@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.management.remote.JMXConnectionNotification;
 import javax.naming.spi.DirStateFactory.Result;
 
 import org.apache.log4j.Logger;
@@ -226,15 +227,77 @@ public class CustomerDAOImpl implements CustomerDAO{
 	}
 
 	@Override
-	public int newTransactionForAccount(int accountId) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int newTransactionForAccount(int transactionId, int accountId) throws BusinessException {
+		int c = 0;
+		try(Connection connection = PostgresSqlConnection.getConnection()){
+			String sql = CustomerQueries.NEW_TRANSACTION_FOR_ACCOUNTID;
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, transactionId);
+			preparedStatement.setInt(2, accountId);
+			c = preparedStatement.executeUpdate();
+		} catch (ClassNotFoundException | SQLException e) {
+			log.debug(e);
+			throw new BusinessException("Internal error occurred. Please contact the System Administrator.");
+		}
+		return c;
 	}
 
 	@Override
-	public int newAccountTransaction(Transaction transaction) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int newAccountTransaction(Transaction transaction) throws BusinessException {
+		int t = 0;
+		try(Connection connection = PostgresSqlConnection.getConnection()){
+			String sql = CustomerQueries.NEW_TRANSACTION;
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, transaction.getTransactionId());
+			preparedStatement.setString(2, transaction.getTransactionType());
+			preparedStatement.setDouble(3, transaction.getTransactionAmount());
+			preparedStatement.setDate(4, new java.sql.Date(transaction.getDate().getTime()));
+			t = preparedStatement.executeUpdate();
+		} catch (ClassNotFoundException | SQLException e) {
+			log.debug(e);
+			throw new BusinessException("Internal error occurred. Please contact the System Administrator.");
+		}
+		return t;
+	}
+
+	@Override
+	public List<Integer> getAllTransactionIds() throws BusinessException {
+		List<Integer> transactionIdList = new ArrayList<>();
+		try(Connection connection = PostgresSqlConnection.getConnection()){
+			String sql = CustomerQueries.GET_ALL_TRANSACTIONIDS;
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				transactionIdList.add(resultSet.getInt("transaction_id"));
+			}
+			if(transactionIdList.size() == 0) {
+				throw new BusinessException("Records show that no transactions have been made yet.");
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			log.debug(e);
+			throw new BusinessException("Internal error occurred. Please contact the System Administrator.");
+		}
+		return transactionIdList;
+	}
+
+	@Override
+	public List<Integer> getAllAccountIds() throws BusinessException {
+		List<Integer> accountIdList = new ArrayList<>();
+		try(Connection connection = PostgresSqlConnection.getConnection()){
+			String sql = CustomerQueries.GET_ALL_ACCOUNTIDS;
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				accountIdList.add(resultSet.getInt("account_id"));
+			}
+			if (accountIdList.size() == 0) {
+				throw new BusinessException("Records show that there aren't any accounts yet.");
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			log.debug(e);
+			throw new BusinessException("Internal error occurred. Please contact the System Administrator.");
+		}
+		return accountIdList;
 	}
 
 }

@@ -25,6 +25,8 @@ public interface CustomerDAO {
 	public int newAccountId(int customerId) throws BusinessException;
 	public int createAccount(Account account) throws BusinessException;
 	public int newCustomer(String newUsername, String newPassword, String firstName, String lastName, boolean approvalStatus) throws BusinessException;
-	public int newTransactionForAccount(int accountId);
-	public int newAccountTransaction (Transaction transaction);
+	public int newTransactionForAccount(int transactionId, int accountId) throws BusinessException;
+	public int newAccountTransaction (Transaction transaction) throws BusinessException;
+	public List<Integer> getAllTransactionIds() throws BusinessException;
+	public List<Integer> getAllAccountIds() throws BusinessException;
 }
