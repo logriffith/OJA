@@ -12,9 +12,7 @@ public class PostgresSqlConnection {
 	}
 	
 	public static Connection getConnection() throws ClassNotFoundException, SQLException {
-		//Step 1 - Load/Register the Driver
 		Class.forName(DbUtilInfo.DRIVER);
-		//Step 2 - Open Connection(url,username,password)
 		String url = DbUtilInfo.URL;
 //		String username = System.getenv("postgresUsername");
 //		String password = System.getenv("postgresPassword");

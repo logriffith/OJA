@@ -65,7 +65,6 @@ public class CustomerServiceImpl implements CustomerService{
 	public Customer customerLogIn(String username, String password) throws BusinessException {
 		log.debug("in CustomerServiceImpl getCustomerId()");
 		Customer customer = null;
-		customerDAOImpl.getCustomerInfo(username, password);
 		if (customerDAOImpl.getCustomerInfo(username, password) != null) {
 			customer = customerDAOImpl.getCustomerInfo(username, password);
 		}else {
@@ -137,26 +136,37 @@ public class CustomerServiceImpl implements CustomerService{
 	
 
 	@Override
-	public int newAccount(int customerId) throws BusinessException {
-		// TODO Auto-generated method stub
-		return 0;
+	public void newAccount(Account account,int customerId, int accountId) throws BusinessException {
+		int x = customerDAOImpl.newAccountForCustomerId(customerId, accountId);
+		int y = customerDAOImpl.newAccount(account);
+		if(x > 0 && y > 0) {
+			log.info("Employee: Okay, you have a new "+account.getAccountType()+" account. Your account number is "+accountId+".");
+		}else {
+			throw new BusinessException("The account was not created.");
+		}
 	}
 
 	@Override
-	public int newCustomer(String newUsername, String newPassword, String firstName, String lastName,
-			boolean approvalStatus) throws BusinessException {
-		// TODO Auto-generated method stub
-		return 0;
+	public void newCustomer(String newUsername, String newPassword, String firstName, String lastName, boolean approvalStatus) throws BusinessException {
+		if(newUsername.length() > 0 && newPassword.length() > 0 && firstName.length() > 0 && lastName.length() > 0) {
+			if (customerDAOImpl.newCustomer(newUsername, newPassword, firstName, lastName, approvalStatus) > 0) {
+				log.info("Welcome to Griffith Community Bank "+firstName+" "+lastName+".");
+			}else {
+				throw new BusinessException("I'm sorry, something went wrong when we tried to put you into our system.");
+			}
+		}else {
+			throw new BusinessException("I'm sorry, you didn't give me your information");
+		}
 	}
 
 	@Override
 	public void makeNewTransaction(Transaction transaction,int transactionId, int accountId) throws BusinessException {
-		int x = customerDAOImpl.newTransactionForAccount(transactionId, accountId);
+		int x = customerDAOImpl.newTransactionForAccountId(transactionId, accountId);
 		int y = customerDAOImpl.newAccountTransaction(transaction);
 		if(x > 0 &&  y > 0) {
-			log.info("This transaction was recorded.");
+			log.debug("The transaction was recorded.");
 		}else {
-			throw new BusinessException("Invalid transaction.");
+			log.debug("Invalid transaction.");
 		}
 	}
 

@@ -45,4 +45,17 @@ public class BankingMenus {
 		log.info("======================================");
 		log.info("Please be sure to enter an appropriate number between 1 and 7.\n");
 	}
+	
+	public static void employeeMenu() {
+		log.info("\n");
+		log.info("Employee Menu:");
+		log.info("======================================");
+		log.info("(1) View All Accounts for Customer");
+		log.info("(2) View Customer Account Balance");
+		log.info("(3) View Account Transactions");
+		log.info("(4) View All Transactions");
+		log.info("(5) Log Out");
+		log.info("======================================");
+		log.info("Please be sure to enter an appropriate number between 1 and 5.\n");
+	}
 }

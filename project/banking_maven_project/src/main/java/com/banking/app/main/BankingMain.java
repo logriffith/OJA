@@ -27,7 +27,7 @@ public class BankingMain {
 		int maxTransactionId = 0;
 		int maxAccountId = 0;
 		int option = 0;
-		log.info("----------Welcome to Lew's Banking App----------");
+		log.info("----------Welcome to the Griffith Community Bank App----------");
 		log.debug("In main menu");
 		do {
 			//Main Menu
@@ -37,8 +37,41 @@ public class BankingMain {
 				if (option<=4 && option>=1) {
 					switch(option) {
 					case 1:
-						log.debug("In new customer");
-						System.out.println("This option is under construction");//remove this later
+						try {
+							log.debug("In new customer");
+							log.info("We will first need to get information from you.");
+							log.info("\nPlease create a username and password for your account. Please limit your username and password to 20 and 32 characters, respectively.");
+							log.info("Please enter your username.");
+							String username = scanner.nextLine();
+							log.info("Please enter your password");
+							String password = scanner.nextLine();
+							log.info("Please confirm your password.");
+							String confirmPassword = scanner.nextLine();
+							if(password.equals(confirmPassword)) {
+								log.info("\nWhat is your first and last name? Please make sure that they are each at most 20 characters in length.");
+								log.info("Please enter your first name:");
+								String firstName = scanner.nextLine();
+								log.info("Please enter your last name:");
+								String lastName = scanner.nextLine();
+								log.info("\nShall I approve this customer's user account? [y/n]");
+								String approved = scanner.nextLine();
+								if(approved.matches("[yY]{1}")) {
+									boolean approvedAccount = true;
+									customerServiceImpl.newCustomer(username, password, firstName, lastName, approvedAccount);
+								}else if(approved.matches("[nN]{1}")) {
+									log.info("We will not approve your account at this time.");
+								}else {
+									log.info("Input could not be understood.");
+								}
+							}else {
+								log.info("Your passwords do not match. ");
+							}
+						}catch(BusinessException e) {
+							log.info(e.getMessage());
+						} catch(Exception e) {
+							log.debug(e);
+							log.info("I'm sorry something went wrong with your registration. Please try again later.");
+						}
 						break;
 					case 2:
 						log.debug("In customer log in");
@@ -54,6 +87,7 @@ public class BankingMain {
 						} catch(BusinessException e) {
 							log.info(e.getMessage());
 						} catch(Exception e) {
+							log.debug(e);
 							log.info("I'm sorry your login was unsuccessful. Please try again later.");
 						}
 						if(acceptedLogin == true) {
@@ -69,8 +103,48 @@ public class BankingMain {
 										log.debug("In customer menu.");
 										switch(customer_Menu) {
 										case 1:
-											log.debug("In new account");
-											System.out.println("This option is under construction.");//remove this later
+											try {
+												log.debug("In new account");
+												log.info("Customer: I would like to open a new account please.");
+												log.info("Employee: Okay, will we authorize this new account? [y/n]");
+												String approved = scanner.nextLine();
+												boolean approvedAccount = false;
+												if(approved.matches("[yY]{1}")) {
+													approvedAccount = true;
+													log.info("Employee: Okay, the new account is authorized.");
+													log.info("Employee: How much would you like to put into the account?");
+													log.info("Employee: Please note that the minimum starting balance for all new accounts is $500.");
+													double startingBalance= Double.parseDouble(scanner.nextLine());
+													if(startingBalance >= 500) {
+														List<Integer> accountlist = customerServiceImpl.getAllAccountIds();
+														if(accountlist.size() > 0) {
+															maxAccountId = accountlist.get(accountlist.size()-1);
+														}else {
+															maxAccountId = 100;
+														}
+														log.info("Employee: Okay, what would you like to name the account (savings, checking, etc.)?");
+														String accountType = scanner.nextLine();
+														Account newAccount = new Account((maxAccountId + 1), accountType, startingBalance, approvedAccount);
+														customerServiceImpl.newAccount(newAccount, customer.getCustomerId(), (maxAccountId + 1));
+														log.info("Customer: Thank you.");
+														log.info("Employee: You're welcome.");
+													}else {
+														log.info("Employee: I am sorry. You must put at least $500 into a new account.");
+													}
+												}else if(approved.matches("[nN]{1}")) {
+													log.info("Employee: I am sorry. We will not authorize a new account for you at this time.");
+												}else {
+													log.info("Customer: I don't understand what you are trying to tell me.");
+												}
+											}catch (NumberFormatException e) {
+												log.debug(e);
+												log.info("I'm sorry, the account number must be a positive integer.");
+											}catch(BusinessException e) {
+												log.info(e.getMessage());
+											}catch(Exception e) {
+												log.debug(e);
+												log.info("I'm sorry, there was a problem accessing your account.");
+											}
 											break;
 										case 2:
 											int customerAccountsMenu = 0;
@@ -96,6 +170,7 @@ public class BankingMain {
 															}catch(BusinessException e){
 																log.info(e.getMessage());
 															}catch(Exception e){
+																log.debug(e);
 																log.info("I'm sorry, there was an problem accessing your accounts.");
 															}
 															break;
@@ -114,6 +189,7 @@ public class BankingMain {
 															}catch(BusinessException e) {
 																log.info(e.getMessage());
 															}catch(Exception e) {
+																log.debug(e);
 																log.info("I'm sorry, there was a problem accessing your account.");
 															}
 															break;
@@ -126,8 +202,8 @@ public class BankingMain {
 																SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a z");
 																if(transactionlist.size() != 0) {
 																	log.info("Okay, here are the transactions for that account:\n");
-																	log.info("Account Number     Type of Transaction       Amount         Date");
-																	for (Transaction t:transactionlist) {																		//ask Dr. Vinay about this
+																	log.info("Account Number     Type of Transaction       Amount         Date and Time");
+																	for (Transaction t:transactionlist) {																		
 																		log.info(t.getAccountId()+"         "+t.getTransactionType()+"       "+t.getTransactionAmount()+"       "+sdf.format(t.getDate()));//format this later
 																	}
 																}
@@ -137,6 +213,7 @@ public class BankingMain {
 															}catch(BusinessException e) {
 																log.info(e.getMessage());
 															}catch(Exception e) {
+																log.debug(e);
 																log.info("I'm sorry, there was a problem accessing your account.");
 															}
 															break;
@@ -149,7 +226,9 @@ public class BankingMain {
 																double amount = Double.parseDouble(scanner.nextLine());
 																customerServiceImpl.withdrawFromAccount(accountId, customer.getCustomerId(), amount);
 																List<Integer> transactionIdlist = customerServiceImpl.getAllTransactionIds();
-																maxTransactionId = transactionIdlist.get(transactionIdlist.size()-1);
+																if(transactionIdlist.size() > 0) {
+																	maxTransactionId = transactionIdlist.get(transactionIdlist.size()-1);
+																}
 																Date date = new Date();
 																Transaction transaction = new Transaction((maxTransactionId + 1), accountId, "withdrawal", amount, date);
 																customerServiceImpl.makeNewTransaction(transaction, (maxTransactionId + 1), accountId);
@@ -159,6 +238,7 @@ public class BankingMain {
 															}catch (BusinessException e){
 																log.info(e.getMessage());
 															}catch (Exception e) {
+																log.debug(e);
 																log.info("I'm sorry, there was a problem processing your withdrawal.");
 															}
 															break;
@@ -171,7 +251,9 @@ public class BankingMain {
 																double amount = Double.parseDouble(scanner.nextLine());
 																customerServiceImpl.depositInAccount(accountId, customer.getCustomerId(), amount);
 																List<Integer> transactionIdlist = customerServiceImpl.getAllTransactionIds();
-																maxTransactionId = transactionIdlist.get(transactionIdlist.size()-1);
+																if(transactionIdlist.size() > 0) {
+																	maxTransactionId = transactionIdlist.get(transactionIdlist.size()-1);
+																}
 																Date date = new Date();
 																Transaction transaction = new Transaction((maxTransactionId + 1), accountId, "deposit", amount, date);
 																customerServiceImpl.makeNewTransaction(transaction, (maxTransactionId + 1), accountId);
@@ -181,6 +263,7 @@ public class BankingMain {
 															}catch (BusinessException e) {
 																log.info(e.getMessage());
 															}catch (Exception e) {
+																log.debug(e);
 																log.info("I'm sorry, there was a problem processing your deposit.");
 															}
 															break;
@@ -202,7 +285,9 @@ public class BankingMain {
 																	if(response.matches("[yY]{1}")) {
 																		customerServiceImpl.makeTransfer(accountId, customer.getCustomerId(), transferToAccountId, amount);
 																		List<Integer> transactionIdlist = customerServiceImpl.getAllTransactionIds();
-																		maxTransactionId = transactionIdlist.get(transactionIdlist.size()-1);
+																		if(transactionIdlist.size() > 0) {
+																			maxTransactionId = transactionIdlist.get(transactionIdlist.size()-1);
+																		}
 																		Date date = new Date();
 																		Transaction transactionFrom = new Transaction((maxTransactionId + 1), accountId, "transferred out", amount, date);
 																		customerServiceImpl.makeNewTransaction(transactionFrom, (maxTransactionId + 1), accountId);
@@ -222,7 +307,9 @@ public class BankingMain {
 																	if(response.matches("[yY]{1}")) {
 																		customerServiceImpl.makeTransfer(accountId, customer.getCustomerId(), transferToAccountId, amount);
 																		List<Integer> transactionIdlist = customerServiceImpl.getAllTransactionIds();
-																		maxTransactionId = transactionIdlist.get(transactionIdlist.size()-1);
+																		if(transactionIdlist.size() > 0) {
+																			maxTransactionId = transactionIdlist.get(transactionIdlist.size()-1);
+																		}
 																		Date date = new Date();
 																		Transaction transactionFrom = new Transaction((maxTransactionId + 1), accountId, "transferred out", amount, date);
 																		customerServiceImpl.makeNewTransaction(transactionFrom, (maxTransactionId + 1), accountId);
@@ -242,6 +329,7 @@ public class BankingMain {
 															}catch (BusinessException e) {
 																log.info(e.getMessage());
 															}catch (Exception e) {
+																log.debug(e);
 																log.info("I'm sorry, there was a problem processing your transfer.");
 															}
 															break;

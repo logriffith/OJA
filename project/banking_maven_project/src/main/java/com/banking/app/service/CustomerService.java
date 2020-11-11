@@ -9,8 +9,6 @@ import com.banking.app.model.Transaction;
 
 public interface CustomerService {
 	
-//	public String getUsername(int customerId) throws BusinessException;
-//	public String getPassword(int customerId) throws BusinessException;
 	public Account getAccount(int accountId, int customerId) throws BusinessException;
 	public Account getAccountById(int accountId) throws BusinessException;
 	public List<Account> getAllAccounts(int customerId) throws BusinessException;
@@ -20,8 +18,8 @@ public interface CustomerService {
 	public void depositInAccount(int accountId, int customerId, double amount) throws BusinessException;
 	public void makeTransfer(int accountId, int customerId, int transferToAccountId, double amount) throws BusinessException;
 	public void makeNewTransaction(Transaction transaction,int transactionId, int accountId) throws BusinessException;
-	public int newAccount(int customerId) throws BusinessException;
-	public int newCustomer(String newUsername, String newPassword, String firstName, String lastName, boolean approvalStatus) throws BusinessException;
+	public void newAccount(Account account,int customerId, int accountId) throws BusinessException;
+	public void newCustomer(String newUsername, String newPassword, String firstName, String lastName, boolean approvalStatus) throws BusinessException;
 	public List<Integer> getAllTransactionIds() throws BusinessException;
 	public List<Integer> getAllAccountIds() throws BusinessException;
 }
