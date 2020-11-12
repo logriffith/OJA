@@ -22,6 +22,9 @@ public class BankingQueries {
 			+ "from bank.all_transactions inner join bank.account_transactions on all_transactions.transaction_id = account_transactions.transaction_id "
 			+ "where account_transactions.account_id = ?";
 	
+	public static final String GET_ALL_TRANSACTIONS = "select account_transactions.account_id,transaction_type, amount, transaction_date "
+			+ "from bank.all_transactions inner join bank.account_transactions on all_transactions.transaction_id = account_transactions.transaction_id";
+	
 	public static final String NEW_TRANSACTION_FOR_ACCOUNTID = "insert into bank.account_transactions (transaction_id,account_id) values (? , ?)";
 	
 	public static final String NEW_TRANSACTION = "insert into bank.all_transactions (transaction_id,transaction_type,amount,transaction_date) "

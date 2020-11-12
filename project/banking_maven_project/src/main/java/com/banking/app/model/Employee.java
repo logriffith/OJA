@@ -21,6 +21,13 @@ public class Employee {
 		this.lastName = lastName;
 	}
 
+	public Employee(int employeeId, String firstName, String lastName) {
+		super();
+		this.employeeId = employeeId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
+
 	public int getEmployeeId() {
 		return employeeId;
 	}

@@ -13,8 +13,7 @@ public class Customer {
 		
 	}
 
-	public Customer(int customerId, String username, String password, String firstName, String lastName,
-			boolean approvedCustomer) {
+	public Customer(int customerId, String username, String password, String firstName, String lastName, boolean approvedCustomer) {
 		super();
 		this.customerId = customerId;
 		this.username = username;

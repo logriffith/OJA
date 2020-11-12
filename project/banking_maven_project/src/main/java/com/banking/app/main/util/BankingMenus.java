@@ -2,7 +2,6 @@ package com.banking.app.main.util;
 
 import org.apache.log4j.Logger;
 
-import com.banking.app.main.BankingMain;
 
 public class BankingMenus {
 	

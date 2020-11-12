@@ -85,7 +85,7 @@ public class CustomerDAOImpl implements CustomerDAO{
 				accountList.add(account);
 			}
 			if(accountList.size() == 0) {
-				throw new BusinessException("You do not have an account yet.");
+				throw new BusinessException("Records show that there are no accounts.");
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			log.debug(e);
