@@ -93,12 +93,27 @@ class CustomerServiceImplTest {
 	}
 
 	@Test
-	void testDepositAndWithdrawal() {
+	void testDepositInAccount() {
 		try {
 			customerService.depositInAccount(104, 2, 25);
 			customerService.withdrawFromAccount(104, 2, 25);
 			Account account = customerService.getAccount(104, 2);
 			assertEquals(3525, account.getBalance());
+		} catch (BusinessException e) {
+			log.debug(e.getMessage());
+		}
+	}
+	
+	@Test
+	void testMakeTransfer() {
+		try {
+			customerService.makeTransfer(106, 2, 104, 30);
+			customerService.depositInAccount(106, 2, 30);
+			customerService.withdrawFromAccount(104, 2, 30);
+			Account transferFrom = customerService.getAccount(106, 2);
+			Account transferTo = customerService.getAccount(104, 2);
+			assertEquals(5000, transferFrom.getBalance());
+			assertEquals(3525, transferTo.getBalance());
 		} catch (BusinessException e) {
 			log.debug(e.getMessage());
 		}

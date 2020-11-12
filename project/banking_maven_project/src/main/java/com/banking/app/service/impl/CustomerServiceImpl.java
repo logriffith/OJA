@@ -20,6 +20,7 @@ public class CustomerServiceImpl implements CustomerService{
 	public static Logger log = Logger.getLogger(CustomerServiceImpl.class);
 	private CustomerDAO customerDAO = new CustomerDAOImpl();
 	
+	//Accounts
 	@Override
 	public Account getAccount(int accountId, int customerId) throws BusinessException {
 		log.debug("in CustomerServiceImpl getAccount()");
@@ -52,7 +53,27 @@ public class CustomerServiceImpl implements CustomerService{
 		List<Account> allCustomerAccounts = customerDAO.getAllAccounts(customerId);
 		return allCustomerAccounts;
 	}
-
+	
+	@Override
+	public void newAccount(Account account,int customerId, int accountId) throws BusinessException {
+		int x = customerDAO.newAccountForCustomerId(customerId, accountId);
+		int y = customerDAO.newAccount(account);
+		if(x > 0 && y > 0) {
+			log.info("Employee: Okay, you have a new "+account.getAccountType()+" account. Your account number is "+accountId+".");
+		}else {
+			throw new BusinessException("The account was not created.");
+		}
+	}
+	
+	@Override
+	public List<Integer> getAllAccountIds() throws BusinessException {
+		List<Integer> accountIdList = null;
+		accountIdList = customerDAO.getAllAccountIds();
+		Collections.sort(accountIdList);
+		return accountIdList;
+	}
+	
+	//Bank Transactions
 	@Override
 	public List<Transaction> getAllTransactionsForAccount(int accountId, int customerId) throws BusinessException {
 		List<Transaction> transactionList = null;
@@ -63,19 +84,7 @@ public class CustomerServiceImpl implements CustomerService{
 		}
 		return transactionList;
 	}
-
-	@Override
-	public Customer customerLogIn(String username, String password) throws BusinessException {
-		log.debug("in CustomerServiceImpl customerLogIn()");
-		Customer customer = null;
-		if (customerDAO.getCustomerInfo(username, password) != null) {
-			customer = customerDAO.getCustomerInfo(username, password);
-		}else {
-			throw new BusinessException("Your username and password are incorrect. Please check your username and password and try again.");
-		}
-		return customer;
-	}
-
+	
 	@Override
 	public void withdrawFromAccount(int accountId, int customerId, double amount) throws BusinessException {
 		if(amount > 0) {
@@ -137,32 +146,6 @@ public class CustomerServiceImpl implements CustomerService{
 		}
 	}
 	
-
-	@Override
-	public void newAccount(Account account,int customerId, int accountId) throws BusinessException {
-		int x = customerDAO.newAccountForCustomerId(customerId, accountId);
-		int y = customerDAO.newAccount(account);
-		if(x > 0 && y > 0) {
-			log.info("Employee: Okay, you have a new "+account.getAccountType()+" account. Your account number is "+accountId+".");
-		}else {
-			throw new BusinessException("The account was not created.");
-		}
-	}
-
-	@Override
-	public void newCustomer(String newUsername, String newPassword, String firstName, String lastName, boolean approvalStatus) throws BusinessException {
-		if(newUsername.length() > 0 && newPassword.length() > 0 && firstName.length() > 0 && lastName.length() > 0) {
-			int c = customerDAO.newCustomer(newUsername, newPassword, firstName, lastName, approvalStatus);
-			if (c > 0) {
-				log.info("Welcome to Griffith Community Bank "+firstName+" "+lastName+".");
-			}else {
-				throw new BusinessException("I'm sorry, something went wrong when we tried to put you into our system.");
-			}
-		}else {
-			throw new BusinessException("I'm sorry, you didn't give me your information");
-		}
-	}
-
 	@Override
 	public void makeNewTransaction(Transaction transaction,int transactionId, int accountId) throws BusinessException {
 		int x = customerDAO.newTransactionForAccountId(transactionId, accountId);
@@ -181,12 +164,32 @@ public class CustomerServiceImpl implements CustomerService{
 		Collections.sort(transactionIdList);
 		return transactionIdList;
 	}
+	
+	//Customer Methods
+	@Override
+	public Customer customerLogIn(String username, String password) throws BusinessException {
+		log.debug("in CustomerServiceImpl customerLogIn()");
+		Customer customer = null;
+		if (customerDAO.getCustomerInfo(username, password) != null) {
+			customer = customerDAO.getCustomerInfo(username, password);
+		}else {
+			throw new BusinessException("Your username and password are incorrect. Please check your username and password and try again.");
+		}
+		return customer;
+	}
 
 	@Override
-	public List<Integer> getAllAccountIds() throws BusinessException {
-		List<Integer> accountIdList = null;
-		accountIdList = customerDAO.getAllAccountIds();
-		Collections.sort(accountIdList);
-		return accountIdList;
+	public void newCustomer(String newUsername, String newPassword, String firstName, String lastName, boolean approvalStatus) throws BusinessException {
+		if(newUsername.length() > 0 && newPassword.length() > 0 && firstName.length() > 0 && lastName.length() > 0) {
+			int c = customerDAO.newCustomer(newUsername, newPassword, firstName, lastName, approvalStatus);
+			if (c > 0) {
+				log.info("Welcome to Griffith Community Bank "+firstName+" "+lastName+".");
+			}else {
+				throw new BusinessException("I'm sorry, something went wrong when we tried to put you into our system.");
+			}
+		}else {
+			throw new BusinessException("I'm sorry, you didn't give me your information");
+		}
 	}
+
 }

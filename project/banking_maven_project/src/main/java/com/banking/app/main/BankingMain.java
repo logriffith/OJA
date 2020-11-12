@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 import org.apache.log4j.Logger;
 
-import com.banking.app.dao.impl.CustomerDAOImpl;
 import com.banking.app.exception.BusinessException;
 import com.banking.app.main.util.BankingMenus;
 import com.banking.app.model.Account;
