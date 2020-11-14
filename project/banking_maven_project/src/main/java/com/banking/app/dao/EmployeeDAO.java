@@ -8,7 +8,7 @@ import com.banking.app.model.Transaction;
 
 public interface EmployeeDAO{
 	
-	public Employee getEmployeeInfo(String username, String password) throws BusinessException;
-	public List<Transaction> getAllTransactions() throws BusinessException;
+	Employee getEmployeeInfo(String username, String password) throws BusinessException;
+	List<Transaction> getAllTransactions() throws BusinessException;
 	
 }

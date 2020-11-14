@@ -8,7 +8,7 @@ import com.banking.app.model.Transaction;
 
 public interface EmployeeService {
 
-	public Employee employeeLogIn(String username, String password) throws BusinessException;
-	public List<Transaction> getAllTransactions() throws BusinessException;
+	Employee employeeLogIn(String username, String password) throws BusinessException;
+	List<Transaction> getAllTransactions() throws BusinessException;
 	
 }
