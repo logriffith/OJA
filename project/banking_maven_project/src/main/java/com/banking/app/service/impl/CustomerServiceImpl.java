@@ -88,18 +88,18 @@ public class CustomerServiceImpl implements CustomerService{
 	@Override
 	public void withdrawFromAccount(int accountId, int customerId, double amount) throws BusinessException {
 		if(amount > 0) {
-		Account account = customerDAO.getAccount(accountId, customerId);
-		double newBalance = account.getBalance() - amount;
-			if(newBalance >= 0) {
-				int update = customerDAO.updateAccountBalance(newBalance, accountId);
-				if(update > 0) {
-					log.info("Okay, here is $"+amount+".");
+			Account account = customerDAO.getAccount(accountId, customerId);
+			double newBalance = account.getBalance() - amount;
+				if(newBalance >= 0) {
+					int update = customerDAO.updateAccountBalance(newBalance, accountId);
+					if(update > 0) {
+						log.info("Okay, here is $"+amount+".");
+					}else {
+						throw new BusinessException("I'm sorry, something went wrong with your withdrawal.");
+					}
 				}else {
-					throw new BusinessException("I'm sorry, something went wrong with your withdrawal.");
+					throw new BusinessException("Withdrawal denied. You don't have enough money in your account for this transaction.");
 				}
-			}else {
-				throw new BusinessException("Withdrawal denied. You don't have enough money in your account for this transaction.");
-			}
 		}else {
 			throw new BusinessException("I'm sorry, the amount to be withdrawn must be a positive number.");
 		}
