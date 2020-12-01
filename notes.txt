@@ -135,5 +135,3 @@ And after restarting Spring Tool, System.getenv should work.
 	CONSTRAINT employees_pk PRIMARY KEY (id),
 	CONSTRAINT employees_fk FOREIGN KEY (id) REFERENCES test.sample_table(id)
 );
-
-made changes
