@@ -800,3 +800,92 @@ Hello Pete Ross!                          Sun 15 November 2020 04:40:07 PM MST
 [INFO]   com.banking.app.main.util.BankingMenus               Please be sure to enter an appropriate number between 1 and 4.
                           Sun 15 November 2020 04:43:34 PM MST 
 [INFO]   com.banking.app.main.BankingMain               Thank you for banking with us. Have a great day!                          Sun 15 November 2020 04:43:56 PM MST 
+[INFO]   com.banking.app.main.BankingMain               ----------Welcome to the Griffith Community Bank App----------                          Fri 12 February 2021 10:22:22 AM MST 
+[INFO]   com.banking.app.main.BankingMain               ==============================================================                          Fri 12 February 2021 10:22:22 AM MST 
+[DEBUG]   com.banking.app.main.BankingMain               In main menu                          Fri 12 February 2021 10:22:22 AM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               
+                          Fri 12 February 2021 10:22:22 AM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               Main Menu:                          Fri 12 February 2021 10:22:22 AM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               ======================================                          Fri 12 February 2021 10:22:22 AM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               (1) New Customer?                          Fri 12 February 2021 10:22:22 AM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               (2) Customer Log-in                          Fri 12 February 2021 10:22:22 AM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               (3) Employee Log-in                          Fri 12 February 2021 10:22:22 AM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               (4) Exit                          Fri 12 February 2021 10:22:22 AM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               ======================================                          Fri 12 February 2021 10:22:22 AM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               Please be sure to enter an appropriate number between 1 and 4.
+                          Fri 12 February 2021 10:22:22 AM MST 
+[INFO]   com.banking.app.main.BankingMain               ----------Welcome to the Griffith Community Bank App----------                          Fri 12 February 2021 10:26:39 AM MST 
+[INFO]   com.banking.app.main.BankingMain               ==============================================================                          Fri 12 February 2021 10:26:39 AM MST 
+[DEBUG]   com.banking.app.main.BankingMain               In main menu                          Fri 12 February 2021 10:26:39 AM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               
+                          Fri 12 February 2021 10:26:39 AM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               Main Menu:                          Fri 12 February 2021 10:26:39 AM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               ======================================                          Fri 12 February 2021 10:26:39 AM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               (1) New Customer?                          Fri 12 February 2021 10:26:39 AM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               (2) Customer Log-in                          Fri 12 February 2021 10:26:39 AM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               (3) Employee Log-in                          Fri 12 February 2021 10:26:39 AM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               (4) Exit                          Fri 12 February 2021 10:26:39 AM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               ======================================                          Fri 12 February 2021 10:26:39 AM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               Please be sure to enter an appropriate number between 1 and 4.
+                          Fri 12 February 2021 10:26:39 AM MST 
+[INFO]   com.banking.app.main.BankingMain               ----------Welcome to the Griffith Community Bank App----------                          Fri 12 February 2021 12:28:53 PM MST 
+[INFO]   com.banking.app.main.BankingMain               ==============================================================                          Fri 12 February 2021 12:28:53 PM MST 
+[DEBUG]   com.banking.app.main.BankingMain               In main menu                          Fri 12 February 2021 12:28:53 PM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               
+                          Fri 12 February 2021 12:28:53 PM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               Main Menu:                          Fri 12 February 2021 12:28:53 PM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               ======================================                          Fri 12 February 2021 12:28:53 PM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               (1) New Customer?                          Fri 12 February 2021 12:28:53 PM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               (2) Customer Log-in                          Fri 12 February 2021 12:28:53 PM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               (3) Employee Log-in                          Fri 12 February 2021 12:28:53 PM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               (4) Exit                          Fri 12 February 2021 12:28:53 PM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               ======================================                          Fri 12 February 2021 12:28:53 PM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               Please be sure to enter an appropriate number between 1 and 4.
+                          Fri 12 February 2021 12:28:53 PM MST 
+[INFO]   com.banking.app.main.BankingMain               ----------Welcome to the Griffith Community Bank App----------                          Fri 12 February 2021 12:50:33 PM MST 
+[INFO]   com.banking.app.main.BankingMain               ==============================================================                          Fri 12 February 2021 12:50:33 PM MST 
+[DEBUG]   com.banking.app.main.BankingMain               In main menu                          Fri 12 February 2021 12:50:33 PM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               
+                          Fri 12 February 2021 12:50:33 PM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               Main Menu:                          Fri 12 February 2021 12:50:33 PM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               ======================================                          Fri 12 February 2021 12:50:33 PM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               (1) New Customer?                          Fri 12 February 2021 12:50:33 PM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               (2) Customer Log-in                          Fri 12 February 2021 12:50:33 PM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               (3) Employee Log-in                          Fri 12 February 2021 12:50:33 PM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               (4) Exit                          Fri 12 February 2021 12:50:33 PM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               ======================================                          Fri 12 February 2021 12:50:33 PM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               Please be sure to enter an appropriate number between 1 and 4.
+                          Fri 12 February 2021 12:50:33 PM MST 
+[INFO]   com.banking.app.main.BankingMain               ----------Welcome to the Griffith Community Bank App----------                          Fri 12 February 2021 01:41:14 PM MST 
+[INFO]   com.banking.app.main.BankingMain               ==============================================================                          Fri 12 February 2021 01:41:14 PM MST 
+[DEBUG]   com.banking.app.main.BankingMain               In main menu                          Fri 12 February 2021 01:41:14 PM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               
+                          Fri 12 February 2021 01:41:14 PM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               Main Menu:                          Fri 12 February 2021 01:41:14 PM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               ======================================                          Fri 12 February 2021 01:41:14 PM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               (1) New Customer?                          Fri 12 February 2021 01:41:14 PM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               (2) Customer Log-in                          Fri 12 February 2021 01:41:14 PM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               (3) Employee Log-in                          Fri 12 February 2021 01:41:14 PM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               (4) Exit                          Fri 12 February 2021 01:41:14 PM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               ======================================                          Fri 12 February 2021 01:41:14 PM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               Please be sure to enter an appropriate number between 1 and 4.
+                          Fri 12 February 2021 01:41:14 PM MST 
+[DEBUG]   com.banking.app.main.BankingMain               In employee log in                          Fri 12 February 2021 01:41:26 PM MST 
+[INFO]   com.banking.app.main.BankingMain               Hello valued employee!                          Fri 12 February 2021 01:41:26 PM MST 
+[INFO]   com.banking.app.main.BankingMain               Please enter your username:                          Fri 12 February 2021 01:41:26 PM MST 
+[INFO]   com.banking.app.main.BankingMain               Please enter your password:                          Fri 12 February 2021 01:41:31 PM MST 
+[DEBUG]   com.banking.app.service.impl.EmployeeServiceImpl               in EmployeeServiceImpl employeeLogIn()                          Fri 12 February 2021 01:41:33 PM MST 
+[DEBUG]   com.banking.app.dao.impl.CustomerDAOImpl               In EmployeeDAOImpl getEmployeeInfo()                          Fri 12 February 2021 01:41:33 PM MST 
+[DEBUG]   com.banking.app.dao.impl.CustomerDAOImpl               org.postgresql.util.PSQLException: Something unusual has occurred to cause the driver to fail. Please report this exception.                          Fri 12 February 2021 01:41:33 PM MST 
+[INFO]   com.banking.app.main.BankingMain               Internal error occurred. Please contact the System Administrator.                          Fri 12 February 2021 01:41:33 PM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               
+                          Fri 12 February 2021 01:41:33 PM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               Main Menu:                          Fri 12 February 2021 01:41:33 PM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               ======================================                          Fri 12 February 2021 01:41:33 PM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               (1) New Customer?                          Fri 12 February 2021 01:41:33 PM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               (2) Customer Log-in                          Fri 12 February 2021 01:41:33 PM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               (3) Employee Log-in                          Fri 12 February 2021 01:41:33 PM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               (4) Exit                          Fri 12 February 2021 01:41:33 PM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               ======================================                          Fri 12 February 2021 01:41:33 PM MST 
+[INFO]   com.banking.app.main.util.BankingMenus               Please be sure to enter an appropriate number between 1 and 4.
+                          Fri 12 February 2021 01:41:33 PM MST 
